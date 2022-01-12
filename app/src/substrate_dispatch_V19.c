@@ -1088,23 +1088,48 @@ parser_error_t _getMethod_ItemValue_V19(
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 3: // LiquidityProxy_swap - swap_amount
-				//return parser_no_data;
 				return _toStringu8(
 					&m->basic.liquidityproxy_swap_V19.swap_amount.type,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 4:
-				//return parser_here_5;
-				return _toStringBalance_V19(
-					&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredOutput.desired_amount_out,
-					outValue, outValueLen,
-					pageIdx, pageCount);
+				//switch (&m->basic.liquidityproxy_swap_V19.swap_amount.type){
+				//	case WithDesiredInput:{
+						return _toStringBalance(
+							&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredInput.desired_amount_in,
+							outValue, outValueLen,
+							pageIdx, pageCount);
+						break;
+				//	}
+				//	case WithDesiredOutput: {
+				//		return _toStringBalance(
+				//			&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredOutput.desired_amount_out,
+				//			outValue, outValueLen,
+				//			pageIdx, pageCount);
+				//		break;
+				//	}
+				//	default:
+				//		return parser_no_data;
+				//}
 			case 5:
-				//return parser_here_6;
-				return _toStringBalance_V19(
-					&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredOutput.max_amount_in,
-					outValue, outValueLen,
-					pageIdx, pageCount);
+				//switch (&m->basic.liquidityproxy_swap_V19.swap_amount.type){
+				//	case WithDesiredInput:{
+						return _toStringBalance(
+							&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredInput.min_amount_out,
+							outValue, outValueLen,
+							pageIdx, pageCount);
+				//		break;
+				//	}
+				//	case WithDesiredOutput: {
+				//		return _toStringBalance(
+				//			&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredOutput.max_amount_in,
+				//			outValue, outValueLen,
+				//			pageIdx, pageCount);
+				//		break;
+				//	}
+				//	default:
+				//		return parser_no_data;
+				//}
 			case 6: // LiquidityProxy_swap - selected_source_types
 				return _toStringu8(
 					&m->basic.liquidityproxy_swap_V19.selected_source_types,

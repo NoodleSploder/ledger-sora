@@ -51,8 +51,8 @@ parser_error_t _readSwapAmount_V19(parser_context_t* c, pd_SwapAmount_V19_t* v){
     switch ( tmp ) {
 		case WithDesiredInput: {
 			// THERE IS A BUG IN the Extension, encoded doesnt match display
-			//CHECK_ERROR(_readSwapAmountWithDesiredInput_V19(c, &v->WithDesiredInput))
-			CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
+			CHECK_ERROR(_readSwapAmountWithDesiredInput_V19(c, &v->WithDesiredInput))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
 			break;
 		}
 		case WithDesiredOutput: {
