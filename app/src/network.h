@@ -10,8 +10,8 @@ extern "C" {
 #endif
 
 typedef enum {
-    Network_EQ = 0,
-    Network_DOT = 1,
+    Network_SORA = 0,
+    Network_SORA_TESTNET = 1,
     Network_MAX
 } NetworkID;
 

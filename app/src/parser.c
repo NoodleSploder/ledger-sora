@@ -83,7 +83,15 @@ parser_error_t parser_validate(const parser_context_t *ctx) {
 
     for (uint8_t idx = 0; idx < numItems; idx++) {
         uint8_t pageCount = 0;
-        CHECK_PARSER_ERR(parser_getItem(ctx, idx, tmpKey, sizeof(tmpKey), tmpVal, sizeof(tmpVal), 0, &pageCount))
+
+        parser_error_t err = parser_ok;
+
+        err = parser_getItem(ctx, idx, tmpKey, sizeof(tmpKey), tmpVal, sizeof(tmpVal), 0, &pageCount);
+
+        if (err != parser_ok) {
+        	return err;
+        }
+
     }
 
     return parser_ok;
@@ -120,6 +128,7 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
                               char *outKey, uint16_t outKeyLen,
                               char *outVal, uint16_t outValLen,
                               uint8_t pageIdx, uint8_t *pageCount) {
+
     MEMZERO(outKey, outKeyLen);
     MEMZERO(outVal, outValLen);
     snprintf(outKey, outKeyLen, "?");
@@ -174,6 +183,7 @@ parser_error_t parser_getItem(const parser_context_t *ctx,
                                    pageIdx, pageCount);
         return err;
     } else {
+
         // CONTINUE WITH FIXED ARGUMENTS
         displayIdx -= methodArgCount;
         if( displayIdx == FIELD_NETWORK ){

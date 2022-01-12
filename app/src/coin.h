@@ -19,11 +19,11 @@
 extern "C" {
 #endif
 
-#define CLA                  0x95
+#define CLA                  0x9F
 
 #define HDPATH_LEN_DEFAULT   5
 #define HDPATH_0_DEFAULT     (0x80000000 | 0x2c)
-#define HDPATH_1_DEFAULT     (0x80000000 | 0x5f5e0fd)   // 99999997 - Equilibrium (https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
+#define HDPATH_1_DEFAULT     (0x80000000 | 0x269)   	// 617 - Sora (https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
 #define HDPATH_1_RECOVERY    (0x80000000 | 0x162)       // 354 - Polkadot
 
 #define SK_LEN_25519         64u
@@ -47,10 +47,10 @@ typedef enum {
 #define SUPPORTED_TX_VERSION_CURRENT        LEDGER_MAJOR_VERSION
 #define SUPPORTED_TX_VERSION_PREVIOUS       (LEDGER_MAJOR_VERSION - 1)
 #define SUPPORTED_SPEC_VERSION              (LEDGER_MINOR_VERSION + 0)
-#define SUPPORTED_MINIMUM_SPEC_VERSION      262
+#define SUPPORTED_MINIMUM_SPEC_VERSION      19
 
-#define COIN_AMOUNT_DECIMAL_PLACES          9
-#define COIN_TICKER                         "EQ"
+#define COIN_AMOUNT_DECIMAL_PLACES          18
+#define COIN_TICKER                         "XOR"
 
 #include "coin_standard.h"
 

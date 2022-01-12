@@ -90,10 +90,6 @@ const char *parser_getErrorDescription(parser_error_t err) {
             return "Max nested calls reached";
         case parser_tx_call_vec_too_large:
             return "Call vector exceeds limit";
-        case parser_currency_not_supported:
-            return "Currency not supported";
-        case parser_subaccount_not_supported:
-            return "Subaccount not supported";
         default:
             return "Unrecognized error code";
     }
@@ -123,18 +119,6 @@ parser_error_t _readBool(parser_context_t *c, pd_bool_t *v) {
         default:
             return parser_unexpected_value;
     }
-    return parser_ok;
-}
-
-parser_error_t _readCurrency(parser_context_t *c, eq_Currency_t *v){
-    CHECK_INPUT();
-    //uint8_t *ptr = c->buffer + c->offset;
-    const uint8_t currency = *(uint8_t*)(c->buffer + c->offset);
-    if (currency == 0 || currency >= CURRENCY_MAX) {
-        return parser_currency_not_supported;
-    }
-    *v = currency;
-    CTX_CHECK_AND_ADVANCE(c, 1);
     return parser_ok;
 }
 
@@ -422,7 +406,7 @@ parser_error_t _readTx(parser_context_t *c, parser_tx_t *v) {
     CHECK_ERROR(_readHash(c, &v->blockHash));
 
     if (c->offset < c->bufferLen) {
-        return parser_unexpected_unparsed_bytes;
+    	return parser_unexpected_unparsed_bytes;
     }
 
     if (c->offset > c->bufferLen) {

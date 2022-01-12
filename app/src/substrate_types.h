@@ -36,7 +36,7 @@ typedef uint8_t pd_u8_t;
 typedef uint16_t pd_u16_t;
 typedef uint32_t pd_u32_t;
 typedef uint64_t pd_u64_t;
-typedef uint64_t pd_BlockNumber_t;
+typedef uint32_t pd_BlockNumber_t;
 
 #define CHECK_ERROR(FUNC_CALL)          \
     {                                   \
@@ -44,35 +44,6 @@ typedef uint64_t pd_BlockNumber_t;
         if (err != parser_ok)           \
             return err;                 \
     }
-
-// TODO: change this after release with assets
-enum EqCurrency {
-    Unknown = 0,
-    Eqd = 1,
-    Eq = 2,
-    Eth = 3,
-    Btc = 4,
-    Eos = 5,
-    Dot = 6,
-    Crv = 7,
-    CURRENCY_MAX
-};
-
-typedef enum EqCurrency eq_Currency_t;
-
-/// Types of subaccounts. Every master account can have
-/// only one subaccount of each type
-enum Subaccount {
-    /// Subaccount for with balances used to register and operate as a bailsman
-    Bailsman = 0,
-    /// Subaccount for with balances used to generate debt
-    Borrower = 1,
-    /// Subaccount for with balances used to lend assets
-    Lender = 2,
-    SUBACCOUNT_MAX
-};
-
-typedef enum Subaccount eq_Subaccount_t;
 
 
 typedef struct {
@@ -121,6 +92,14 @@ typedef struct {
 } pd_Data_t;
 
 typedef struct {
+    const uint8_t* _ptr;
+} pd_Hash_t;
+
+typedef struct {
+    const uint8_t* _ptr;
+} pd_u128_t;
+
+typedef struct {
     pd_Balance_t value;
 } pd_BalanceOf_t;
 
@@ -133,6 +112,12 @@ typedef struct {
     pd_Data_t data1;
     pd_Data_t data2;
 } pd_TupleDataData_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecHash_t;
 
 typedef struct {
     const uint8_t* _ptr;
@@ -155,10 +140,25 @@ typedef struct {
 } pd_Optionu8_array_20_t;
 
 typedef struct {
+    uint8_t some;
+    pd_u32_t contained;
+} pd_Optionu32_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecBytes_t;
+
+typedef struct {
     uint64_t _len;
     const uint8_t* _ptr;
     uint64_t _lenBuffer;
 } pd_VecTupleDataData_t;
+
+typedef struct {
+    const uint8_t* _ptr;
+} pd_u256_t;
 
 typedef struct {
     pd_Call_t call;
@@ -178,18 +178,9 @@ typedef struct {
 typedef compactInt_t pd_CompactBlockNumber_t;
 
 typedef struct {
-    const uint8_t* _ptr;
-} pd_Hash_t;
-
-typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
 } pd_Heartbeat_t;
-
-typedef struct {
-    uint8_t some;
-    pd_u32_t contained;
-} pd_Optionu32_t;
 
 typedef struct {
     uint64_t _len;

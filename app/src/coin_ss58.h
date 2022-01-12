@@ -18,13 +18,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#define COIN_ADDR_TYPE_SUBSTRATE      	42
 #define COIN_ADDR_TYPE_POLKADOT         0
 #define COIN_ADDR_TYPE_KUSAMA           2
 #define COIN_ADDR_TYPE_EDGEWARE         7
 #define COIN_ADDR_TYPE_KULUPU           16
 #define COIN_ADDR_TYPE_DOTHEREUM        20
-#define COIN_ADDR_TYPE_EQUILIBRIUM      68
+#define COIN_ADDR_TYPE_SORA      		69
 
 #ifdef __cplusplus
 }

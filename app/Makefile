@@ -40,7 +40,7 @@ all: bin/app.elf
 
 include $(BOLOS_SDK)/Makefile.defines
 
-APP_TYPE = EQUILIBRIUM_APP
+APP_TYPE = SORA_APP
 
 DEFINES += $(APP_TYPE)
 
@@ -64,7 +64,7 @@ $(info ************ FULL PARSER ENABLED ************)
 endif
 
 ifndef COIN
-COIN=Equilibrium
+COIN=XOR
 endif
 
 include $(CURDIR)/Makefile.version
@@ -73,9 +73,9 @@ $(info COIN  = [$(COIN)])
 
 # Main app configuration
 DEFINES += APP_STANDARD
-ifeq ($(COIN),Equilibrium)
-APPNAME = "Equilibrium"
-APPPATH = "44'/99999997'" --path "44'/354'"
+ifeq ($(COIN),XOR)
+APPNAME = "SORA"
+APPPATH = "44'/617'" --path "44'/617'"
 else
 define error_message
 
@@ -91,13 +91,13 @@ APP_LOAD_PARAMS = --appFlags 0x200 --delete $(COMMON_LOAD_PARAMS) --path $(APPPA
 
 ifeq ($(TARGET_NAME),TARGET_NANOS)
 APP_STACK_SIZE:=3472
-ICONNAME:=$(CURDIR)/nanos_eq_icon.gif
+ICONNAME:=$(CURDIR)/nanos_icon.gif
 OUTPUT_ELF ?= $(CURDIR)/output/app_s.elf
 OUTPUT_INSTALLER := $(CURDIR)/pkg/installer_s.sh
 endif
 
 ifeq ($(TARGET_NAME),TARGET_NANOX)
-ICONNAME:=$(CURDIR)/nanox_eq_icon.gif
+ICONNAME:=$(CURDIR)/nanox_icon.gif
 OUTPUT_ELF ?= $(CURDIR)/output/app_x.elf
 OUTPUT_INSTALLER:= $(CURDIR)/pkg/installer_x.sh
 endif
@@ -236,7 +236,7 @@ dep/%.d: %.c Makefile
 .PHONY: listvariants
 listvariants:
 ifeq ($(TARGET_NAME),TARGET_NANOS)
-	@echo VARIANTS COIN Equilibrium
+	@echo VARIANTS COIN XOR
 else ifeq ($(TARGET_NAME),TARGET_NANOX)
-	@echo VARIANTS COIN Equilibrium
+	@echo VARIANTS COIN XOR
 endif

@@ -28,9 +28,9 @@ extern "C" {
 #define HDPATH_3_DEFAULT     (0u)
 #define HDPATH_4_DEFAULT     (0u)
 
-#define MENU_MAIN_APP_LINE1                 "Equilibrium"
+#define MENU_MAIN_APP_LINE1                 "SORA"
 #define MENU_MAIN_APP_LINE2                 "Ready"
-#define MENU_MAIN_APP_LINE2_SECRET          "EQ RECOVERY"
+#define MENU_MAIN_APP_LINE2_SECRET          "XOR RECOVERY"
 #define APPVERSION_LINE1                    MENU_MAIN_APP_LINE1
 #define APPVERSION_LINE2                    "v" APPVERSION
 
