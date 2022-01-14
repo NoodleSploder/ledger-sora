@@ -54,6 +54,7 @@ extern "C" {
 #define PD_CALL_ETHBRIDGE 31
 #define PD_CALL_PSWAPDISTRIBUTION 32
 #define PD_CALL_VESTEDREWARDS 40
+#define PD_CALL_CERESSTAKING 45
 
 // 11 - UTILITY CALLS
 #define PD_CALL_UTILITY_BATCH_V20 0
@@ -201,6 +202,18 @@ typedef struct {
 typedef struct {
 } pd_vestedrewards_claim_rewards_V20_t;
 
+// 45 - CERESSTAKING
+#define PD_CALL_CERESSTAKING_DEPOSIT	0
+typedef struct {
+
+} pd_ceresstaking_deposit_V20_t;
+
+#define PD_CALL_CERESSTAKING_WITHDRAW	1
+typedef struct {
+} pd_ceresstaking_withdraw_V20_t;
+
+
+
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -234,6 +247,11 @@ typedef union {
 	pd_ethbridge_request_from_sidechain_V20_t ethbridge_request_from_sidechain_V20;
 	pd_pswapdistribution_claim_incentive_V20_t pswapdistribution_claim_incentive_V20;
 	pd_vestedrewards_claim_rewards_V20_t vestedrewards_claim_rewards_V20;
+
+	// Ceres
+	pd_ceresstaking_deposit_V20_t ceresstaking_deposit_V20;
+	pd_ceresstaking_withdraw_V20_t ceresstaking_withdraw_V20;
+
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif

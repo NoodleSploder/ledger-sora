@@ -12,6 +12,19 @@
 *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
+*
+*  TODO:
+*  		democracy.notePreimage 29 - 14 ( encoded_proposal:Bytes )
+*  		democracy.propose 29 - 0 ( proposal_hash:Hash, value:Compact<BalanceOf> )
+*  		democracy.vote 29 -2 ( ref_index: Compact<ReferendumIndex>, vote:AccountVote )
+*  		democracy.second 29 - 1 ( proposal:Compact<PropIndex>, seconds_upper_bound:Compact<u32>)
+*
+*  		electionsPhragmen.submitCandidacy 39 - 2 ( candidate_count:Compact<u32> )
+*  		electionsPhragmen.vote 39 - 0 ( votes:Vec<AccountId>, value:Compact<BalanceOf> )
+*
+*		CeresStaking 45
+*			CeresStaking.deposit 45 - 0 ( amount:Balance )
+*			CeresStaking.withdraw 45 - 1
 ********************************************************************************/
 
 #include "coin.h"
@@ -351,8 +364,23 @@ __Z_INLINE parser_error_t _readMethod_VestedRewards_claim_rewards_V20(
  * Farming idx: 42
  * XSTPool idx: 43
  * PriceTools idx: 44
+ */
+/*
  * CeresStaking idx: 45
- *
+ */
+__Z_INLINE parser_error_t _readMethod_CeresStaking_deposit_V20(
+    parser_context_t* c, pd_ceresstaking_deposit_V20_t* m)
+{
+	return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_CeresStaking_withdraw_V20(
+    parser_context_t* c, pd_ceresstaking_withdraw_V20_t* m)
+{
+	return parser_ok;
+}
+
+/*
  *
  *
  */
@@ -475,7 +503,14 @@ parser_error_t _readMethod_V20(
 		case 10240:
 			CHECK_ERROR(_readMethod_VestedRewards_claim_rewards_V20(c, &method->basic.vestedrewards_claim_rewards_V20))
 			break;
-
+		/* module 45 - 0 - ceresstaking.deposit */
+		case 11520:
+			 CHECK_ERROR(_readMethod_CeresStaking_deposit_V20(c, &method->basic.ceresstaking_deposit_V20));
+			 break;
+		/* module 45 - 1 - ceresstaking.withdraw */
+		case 11521:
+			 CHECK_ERROR(_readMethod_CeresStaking_withdraw_V20(c, &method->basic.ceresstaking_withdraw_V20));
+			 break;
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -513,6 +548,8 @@ const char* _getMethod_ModuleName_V20(uint8_t moduleIdx)
     	return STR_MO_PSWAP_DISTRIBUTION;
     case 40:
     	return STR_MO_VESTED_REWARDS;
+    case 45:
+    	return STR_MO_CERESSTAKING;
 #ifdef SUBSTRATE_PARSER_FULL
     case 0:
         return STR_MO_SYSTEM;
@@ -571,10 +608,14 @@ const char* _getMethod_Name_V20(uint8_t moduleIdx, uint8_t callIdx)
     	return STR_ME_TRANSFER_TO_SIDECHAIN;
     case 7940: /* module 31 - 4 - ethBridge.request_from_sidechain */
     	return STR_ME_REQUEST_FROM_SIDECHAIN;
-	case 8192:/* module 32 - 0 - PswapDistribution.claim_incentive */
+	case 8192: /* module 32 - 0 - PswapDistribution.claim_incentive */
 		return STR_ME_CLAIM_INCENTIVE;
-	case 10240:/* module 40 - 0 - VestedRewards.claim_rewards */
+	case 10240: /* module 40 - 0 - VestedRewards.claim_rewards */
 		return STR_ME_CLAIM_REWARDS;
+	case 11520: /* module 45 - 0 - ceresstaking.deposit */
+		 return STR_ME_DEPOSIT;
+	case 11521: /* module 45 - 1 - ceresstaking.withdraw */
+		return STR_ME_WITHDRAW;
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -642,8 +683,14 @@ uint8_t _getMethod_NumItems_V20(uint8_t moduleIdx, uint8_t callIdx)
 	/* module 32 - 0 - PswapDistribution.claim_incentive */
 	case 8192:
 		return 0;
-		/* module 40 - 0 - VestedRewards.claim_rewards */
+	/* module 40 - 0 - VestedRewards.claim_rewards */
 	case 10240:
+		return 0;
+	/* module 45 - 0 - ceresstaking.deposit */
+	case 11520:
+		 return 1;
+	/* module 45 - 1 - ceresstaking.withdraw */
+	case 11521:
 		return 0;
 #ifdef SUBSTRATE_PARSER_FULL
 
@@ -891,6 +938,20 @@ const char* _getMethod_ItemName_V20(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
 		}
 	/* module 40 - 0 - VestedRewards.claim_rewards */
 	case 10240:
+		switch (itemIdx) {
+			default:
+				return NULL;
+		}
+	/* module 45 - 0 - ceresstaking.deposit */
+	case 11520:
+		switch (itemIdx) {
+		case 0:
+			return STR_IT_amount;
+		default:
+			return NULL;
+		}
+	/* module 45 - 1 - ceresstaking.withdraw */
+	case 11521:
 		switch (itemIdx) {
 			default:
 				return NULL;
@@ -1294,7 +1355,24 @@ parser_error_t _getMethod_ItemValue_V20(
 	case 10240:
 		switch (itemIdx) {
 			default:
-				return NULL;
+				return parser_no_data;
+		}
+	/* module 45 - 0 - ceresstaking.deposit */
+	case 11520:
+		switch (itemIdx) {
+			case 0:
+				return _toStringBalance_V20(
+					&m->basic.ethbridge_transfer_to_sidechain_V20.amount,
+					outValue, outValueLen,
+					pageIdx, pageCount);;
+			default:
+				return parser_no_data;
+		}
+	/* module 45 - 1 - ceresstaking.withdraw */
+	case 11521:
+		switch (itemIdx) {
+			default:
+				return parser_no_data;
 		}
 #ifdef SUBSTRATE_PARSER_FULL
 
