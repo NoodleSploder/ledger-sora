@@ -205,7 +205,7 @@ typedef struct {
 // 45 - CERESSTAKING
 #define PD_CALL_CERESSTAKING_DEPOSIT	0
 typedef struct {
-
+	pd_Balance_V20_t amount;
 } pd_ceresstaking_deposit_V20_t;
 
 #define PD_CALL_CERESSTAKING_WITHDRAW	1

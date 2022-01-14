@@ -371,6 +371,7 @@ __Z_INLINE parser_error_t _readMethod_VestedRewards_claim_rewards_V20(
 __Z_INLINE parser_error_t _readMethod_CeresStaking_deposit_V20(
     parser_context_t* c, pd_ceresstaking_deposit_V20_t* m)
 {
+	CHECK_ERROR(_readBalance_V20(c, &m->amount));
 	return parser_ok;
 }
 
@@ -1362,7 +1363,7 @@ parser_error_t _getMethod_ItemValue_V20(
 		switch (itemIdx) {
 			case 0:
 				return _toStringBalance_V20(
-					&m->basic.ethbridge_transfer_to_sidechain_V20.amount,
+					&m->basic.ceresstaking_deposit_V20.amount,
 					outValue, outValueLen,
 					pageIdx, pageCount);;
 			default:
