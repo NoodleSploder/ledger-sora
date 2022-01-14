@@ -33,38 +33,12 @@ parser_error_t _readBalance_V19(parser_context_t* c, pd_Balance_V19_t* v) {
 	GEN_DEF_READARRAY(16)
 }
 
-parser_error_t _readSwapAmountWithDesiredInput_V19(parser_context_t* c, pd_SwapWithDesiredInput_V19_t* v){
-	CHECK_ERROR(_readBalance_V19(c, &v->desired_amount_in))
-	CHECK_ERROR(_readBalance_V19(c, &v->min_amount_out))
+
+parser_error_t _readOptionSwapAmount_V19(parser_context_t* c, pd_SwapAmount_V19_t* v){
+	CHECK_ERROR(_readUInt8(c, &v->some))
+	CHECK_ERROR(_readBalance_V19(c, &v->contained_1))
+	CHECK_ERROR(_readBalance_V19(c, &v->contained_2))
 	return parser_ok;
-}
-
-parser_error_t _readSwapAmountWithDesiredOutput_V19(parser_context_t* c, pd_SwapWithDesiredOutput_V19_t* v){
-	CHECK_ERROR(_readBalance_V19(c, &v->desired_amount_out))
-	CHECK_ERROR(_readBalance_V19(c, &v->max_amount_in))
-	return parser_ok;
-}
-
-parser_error_t _readSwapAmount_V19(parser_context_t* c, pd_SwapAmount_V19_t* v){
-	uint8_t tmp = _readUInt8(c, &v->type);
-
-    switch ( tmp ) {
-		case WithDesiredInput: {
-			// THERE IS A BUG IN the Extension, encoded doesnt match display
-			CHECK_ERROR(_readSwapAmountWithDesiredInput_V19(c, &v->WithDesiredInput))
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
-			break;
-		}
-		case WithDesiredOutput: {
-			CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
-			break;
-		}
-		default:{
-			break;
-		}
-    }
-
-    return parser_ok;
 }
 
 parser_error_t _readLiquiditySourceType_V19(parser_context_t* c, pd_LiquiditySourceType_V19_t* v){
@@ -73,7 +47,7 @@ parser_error_t _readLiquiditySourceType_V19(parser_context_t* c, pd_LiquiditySou
 }
 
 parser_error_t _readVecLiquiditySourceType_V19(parser_context_t* c, pd_VecLiquiditySourceType_V19_t* v){
-	//GEN_DEF_READVECTOR(LiquiditySourceType_V19);
+	GEN_DEF_READVECTOR(LiquiditySourceType_V19);
 	return parser_ok;
 }
 
@@ -553,6 +527,7 @@ parser_error_t _toStringH256_array_3_V19(
     uint8_t* pageCount)
 {
     GEN_DEF_TOSTRING_ARRAY(96);
+    return parser_ok;
 }
 
 
@@ -587,6 +562,7 @@ parser_error_t _toStringKeys_V19(
     uint8_t pageIdx,
     uint8_t* pageCount) {
     GEN_DEF_TOSTRING_ARRAY(4 * 32)
+		return parser_ok;
 }
 
 parser_error_t _toStringLookupSource_V19(
@@ -648,7 +624,8 @@ parser_error_t _toStringSignature_V19(
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount) {
-    GEN_DEF_TOSTRING_ARRAY(64)
+    GEN_DEF_TOSTRING_ARRAY(64);
+		return parser_ok;
 }
 
 parser_error_t _toStringAmount_V19(
@@ -659,9 +636,10 @@ parser_error_t _toStringAmount_V19(
     uint8_t* pageCount)
 {
 	GEN_DEF_TOSTRING_ARRAY(16);
+	return parser_ok;
 }
 
-parser_error_t _toStringBalance_V19(
+parser_error_t _toStringBalance_SIMPLE_V19(
     const pd_Balance_V19_t* v,
     char* outValue,
     uint16_t outValueLen,
@@ -669,8 +647,53 @@ parser_error_t _toStringBalance_V19(
     uint8_t* pageCount)
 {
 	GEN_DEF_TOSTRING_ARRAY(16);
+	return parser_ok;
 }
 
+
+
+parser_error_t _toStringBalance_V19(
+    const pd_Balance_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    char bufferUI[200];
+    MEMSET(outValue, 0, outValueLen);
+    MEMSET(bufferUI, 0, sizeof(bufferUI));
+    *pageCount = 1;
+
+    uint8_t bcdOut[100];
+    const uint16_t bcdOutLen = sizeof(bcdOut);
+
+    bignumLittleEndian_to_bcd(bcdOut, bcdOutLen, v->_ptr, 8);
+    if (!bignumLittleEndian_bcdprint(bufferUI, sizeof(bufferUI), bcdOut, bcdOutLen)) {
+        return parser_unexpected_value;
+    }
+
+    // Format number
+    if (intstr_to_fpstr_inplace(bufferUI, sizeof(bufferUI), COIN_AMOUNT_DECIMAL_PLACES) == 0) {
+        return parser_unexpected_value;
+    }
+
+    number_inplace_trimming(bufferUI, 1);
+    //size_t size = strlen(bufferUI) + strlen(ticker) + 2;
+    size_t size = strlen(bufferUI) + 2;
+    char _tmpBuffer[200];
+    MEMZERO(_tmpBuffer, sizeof(_tmpBuffer));
+    //strcat(_tmpBuffer, ticker);
+    strcat(_tmpBuffer, " ");
+    strcat(_tmpBuffer, bufferUI);
+    // print length: strlen(value) + strlen(COIN_TICKER) + strlen(" ") + nullChar
+    MEMZERO(bufferUI, sizeof(bufferUI));
+    snprintf(bufferUI, size, "%s", _tmpBuffer);
+
+    pageString(outValue, outValueLen, bufferUI, pageIdx, pageCount);
+    return parser_ok;
+}
 
 
 parser_error_t _toStringBridgeNetworkId_V19(
@@ -692,7 +715,7 @@ parser_error_t _toStringEthereumAddress_V19(
     uint8_t* pageCount)
 {
 	GEN_DEF_TOSTRING_ARRAY(32);
-    //return _toStringu8_array_32_V19(&v->_ptr, outValue, outValueLen, pageIdx, pageCount);
+	return parser_ok;
 }
 
 parser_error_t _toStringAssetId_V19(
@@ -703,7 +726,7 @@ parser_error_t _toStringAssetId_V19(
     uint8_t* pageCount)
 {
 	GEN_DEF_TOSTRING_ARRAY(32);
-    //return _toStringu8_array_32_V19(&v->_ptr, outValue, outValueLen, pageIdx, pageCount);
+	return parser_ok;
 }
 
 parser_error_t _toStringTokenId_V19(
@@ -754,6 +777,7 @@ parser_error_t _toStringu8_array_32_V19(
     uint8_t pageIdx,
     uint8_t* pageCount) {
     GEN_DEF_TOSTRING_ARRAY(32)
+	return parser_ok;
 }
 
 parser_error_t _toStringVecAccountId_V19(
@@ -1007,4 +1031,63 @@ parser_error_t _toStringCompactPerBill_V19(
 {
     // 9 but shift 2 to show as percentage
     return _toStringCompactInt(&v->value, 7, '%', "", outValue, outValueLen, pageIdx, pageCount);
+}
+
+parser_error_t _toStringOptionSwapAmount_Out_V19(
+	const pd_SwapAmount_V19_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+	CLEAN_AND_CHECK()
+
+	*pageCount = 1;
+	CHECK_ERROR(_toStringBalance_V19(
+		&v->contained_1,
+		outValue, outValueLen,
+		pageIdx, pageCount));
+	return parser_ok;
+}
+
+
+parser_error_t _toStringOptionSwapAmount_In_V19(
+	const pd_SwapAmount_V19_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+	CLEAN_AND_CHECK()
+
+	*pageCount = 1;
+
+	CHECK_ERROR(_toStringBalance_V19(
+		&v->contained_2,
+		outValue, outValueLen,
+		pageIdx, pageCount));
+	return parser_ok;
+}
+
+
+
+parser_error_t _toStringLiquiditySourceType_V19(
+    const pd_LiquiditySourceType_V19_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+	return _toStringu8((const pd_u16_t*)&v->value, outValue, outValueLen, pageIdx, pageCount);
+}
+
+
+parser_error_t _toStringVecLiquiditySourceType_V19(
+    const pd_VecLiquiditySourceType_V19_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    GEN_DEF_TOSTRING_VECTOR(LiquiditySourceType_V19);
 }

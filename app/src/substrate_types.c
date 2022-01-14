@@ -24,6 +24,8 @@
 #include <zbuffer.h>
 #include <zxmacros.h>
 
+#include "assets.h"
+
 parser_error_t _readbool(parser_context_t* c, pd_bool_t* v)
 {
     return _readUInt8(c, v);
@@ -445,6 +447,52 @@ parser_error_t _toStringBalance(
     return parser_ok;
 }
 
+parser_error_t _toStringBalanceWithAssetID(
+    const pd_Balance_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    char bufferUI[200];
+    MEMSET(outValue, 0, outValueLen);
+    MEMSET(bufferUI, 0, sizeof(bufferUI));
+    *pageCount = 1;
+
+    uint8_t bcdOut[100];
+    const uint16_t bcdOutLen = sizeof(bcdOut);
+
+    bignumLittleEndian_to_bcd(bcdOut, bcdOutLen, v->_ptr, 8);
+    if (!bignumLittleEndian_bcdprint(bufferUI, sizeof(bufferUI), bcdOut, bcdOutLen)) {
+        return parser_unexpected_value;
+    }
+
+    // Format number
+    if (intstr_to_fpstr_inplace(bufferUI, sizeof(bufferUI), COIN_AMOUNT_DECIMAL_PLACES) == 0) {
+        return parser_unexpected_value;
+    }
+
+    number_inplace_trimming(bufferUI, 1);
+    //size_t size = strlen(bufferUI) + strlen(COIN_TICKER) + 2;
+    ASSET_TICKER = "VAL";
+    size_t size = strlen(bufferUI) + strlen(ASSET_TICKER) + 2;
+    char _tmpBuffer[200];
+    MEMZERO(_tmpBuffer, sizeof(_tmpBuffer));
+    //strcat(_tmpBuffer, COIN_TICKER);
+    strcat(_tmpBuffer, ASSET_TICKER);
+    strcat(_tmpBuffer, " ");
+    strcat(_tmpBuffer, bufferUI);
+    //print length: strlen(value) + strlen(COIN_TICKER) + strlen(" ") + nullChar
+    MEMZERO(bufferUI, sizeof(bufferUI));
+    snprintf(bufferUI, size, "%s", _tmpBuffer);
+
+    pageString(outValue, outValueLen, bufferUI, pageIdx, pageCount);
+    return parser_ok;
+}
+
+
 parser_error_t _toStringData(
     const pd_Data_t* v,
     char* outValue,
@@ -461,6 +509,7 @@ parser_error_t _toStringData(
     if (v->type > Data_e_NONE && v->type <= Data_e_RAW_VECU8) {
         const uint8_t bufferSize = ((uint8_t)v->type - 1);
         GEN_DEF_TOSTRING_ARRAY(bufferSize)
+        return parser_ok;
     }
 
     switch (v->type) {
@@ -500,6 +549,7 @@ parser_error_t _toStringBytes(
     uint8_t* pageCount)
 {
     GEN_DEF_TOSTRING_ARRAY(v->_len);
+    return parser_ok;
 }
 
 parser_error_t _toStringTupleDataData(
@@ -548,7 +598,8 @@ parser_error_t _toStringu8_array_20(
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount) {
-    GEN_DEF_TOSTRING_ARRAY(20)
+    GEN_DEF_TOSTRING_ARRAY(20);
+		return parser_ok;
 }
 
 parser_error_t _toStringCall(
@@ -732,7 +783,8 @@ parser_error_t _toStringHash(
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount) {
-    GEN_DEF_TOSTRING_ARRAY(32)
+    GEN_DEF_TOSTRING_ARRAY(32);
+    return parser_ok;
 }
 
 parser_error_t _toStringHeartbeat(

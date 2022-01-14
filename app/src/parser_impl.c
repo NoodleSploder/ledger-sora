@@ -26,6 +26,8 @@
 #include "network.h"
 #include "app_mode.h"
 
+
+
 parser_error_t parser_init_context(parser_context_t *ctx,
                                    const uint8_t *buffer,
                                    uint16_t bufferSize) {
@@ -44,6 +46,7 @@ parser_error_t parser_init_context(parser_context_t *ctx,
 }
 
 parser_error_t parser_init(parser_context_t *ctx, const uint8_t *buffer, uint16_t bufferSize) {
+	ASSET_TICKER = "XOR";
     CHECK_PARSER_ERR(parser_init_context(ctx, buffer, bufferSize))
     return parser_ok;
 }
@@ -390,6 +393,7 @@ uint8_t _detectAddressType(const parser_context_t *c) {
 
 parser_error_t _readTx(parser_context_t *c, parser_tx_t *v) {
     CHECK_INPUT();
+	#define COIN_TICKER                         "XOR"
 
     // Reverse parse to retrieve spec before forward parsing
     CHECK_ERROR(_checkVersions(c));

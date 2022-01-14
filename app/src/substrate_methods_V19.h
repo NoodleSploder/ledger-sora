@@ -169,7 +169,7 @@ typedef struct {
 	pd_AssetId_V19_t input_asset_id;
 	pd_AssetId_V19_t output_asset_id;
 	pd_SwapAmount_V19_t swap_amount;
-	pd_LiquiditySourceType_V19_t selected_source_types;
+	pd_VecLiquiditySourceType_V19_t selected_source_types;
 	pd_FilterMode_V19_t filter_mode;
 } pd_liquidityproxy_swap_V19_t;
 

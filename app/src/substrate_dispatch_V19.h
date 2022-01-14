@@ -26,6 +26,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 
+
 parser_error_t _readMethod_V19(parser_context_t* c, uint8_t moduleIdx, uint8_t callIdx, pd_Method_V19_t* method);
 
 const char* _getMethod_ModuleName_V19(uint8_t moduleIdx);

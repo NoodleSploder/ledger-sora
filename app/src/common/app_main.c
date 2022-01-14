@@ -147,7 +147,7 @@ void app_init() {
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 
 void app_main() {
-    volatile uint32_t rx = 0, tx = 0, flags = 0;
+	volatile uint32_t rx = 0, tx = 0, flags = 0;
 
     for (;;) {
         volatile uint16_t sw = 0;

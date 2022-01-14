@@ -14,10 +14,12 @@
 *  limitations under the License.
 ********************************************************************************/
 
+#include "coin.h"
 #include "substrate_dispatch_V19.h"
 #include "substrate_strings.h"
 #include "zxmacros.h"
 #include <stdint.h>
+#include "assets.h"
 
 /**
  * SYSTEM idx:0
@@ -271,8 +273,9 @@ __Z_INLINE parser_error_t _readMethod_liquidityproxy_swap_V19(
 	CHECK_ERROR(_readDexId_V19(c, &m->dex_id));
 	CHECK_ERROR(_readAssetId_V19(c, &m->input_asset_id));
 	CHECK_ERROR(_readAssetId_V19(c, &m->output_asset_id));
-	CHECK_ERROR(_readSwapAmount_V19(c, &m->swap_amount));
-	CHECK_ERROR(_readLiquiditySourceType_V19(c, &m->selected_source_types));
+	CHECK_ERROR(_readOptionSwapAmount_V19(c, &m->swap_amount));
+	//CHECK_ERROR(_readBalance_V19(c, &m->swap_amount.contained_2))
+	CHECK_ERROR(_readVecLiquiditySourceType_V19(c, &m->selected_source_types));
 	CHECK_ERROR(_readFilterMode_V19(c, &m->filter_mode));
 
 	return parser_ok;
@@ -565,7 +568,8 @@ uint8_t _getMethod_NumItems_V19(uint8_t moduleIdx, uint8_t callIdx)
 		return 6;
 	/* module 26 call 0 - LiquidityProxy.Swap */
 	case 6656:
-		return 8;
+		//return 8;
+		return 7;
 	/* module 31 - 3 - ethBridge.transfer_to_sidechain */
 	case 7939:
 		return 4;
@@ -750,18 +754,16 @@ const char* _getMethod_ItemName_V19(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
 			case 0:
 				return STR_IT_dex_id;
 			case 1:
-				return STR_IT_input_asset_id;
-			case 2:
 				return STR_IT_output_asset_id;
-			case 3:
-				return STR_IT_swap_amount;
-			case 4:
+			case 2:
 				return STR_IT_swap_desired_amount_out;
-			case 5:
+			case 3:
+				return STR_IT_input_asset_id;
+			case 4:
 				return STR_IT_swap_max_amount_in;
-			case 6:
+			case 5:
 				return STR_IT_selected_source_types;
-			case 7:
+			case 6:
 				return STR_IT_filter_mode;
 			default:
 				return NULL;
@@ -803,6 +805,7 @@ const char* _getMethod_ItemName_V19(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
 
     return NULL;
 }
+
 
 parser_error_t _getMethod_ItemValue_V19(
     pd_Method_V19_t* m,
@@ -982,7 +985,7 @@ parser_error_t _getMethod_ItemValue_V19(
 					outValue, outValueLen,
 				   pageIdx, pageCount);
 			case 2: // assets_transfer_V19 - amount
-				return _toStringBalance(
+				return _toStringBalance_V19(
 					&m->basic.assets_transfer_V19.amount,
 					outValue, outValueLen,
 					pageIdx, pageCount);
@@ -1078,64 +1081,31 @@ parser_error_t _getMethod_ItemValue_V19(
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 1: // LiquidityProxy_swap - input_asset_id
-				return _toStringAssetId_V19(
+				return  _toStringAssetId_V19(
 					&m->basic.liquidityproxy_swap_V19.input_asset_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
-			case 2: // LiquidityProxy_swap - output_asset_id
+			case 2: // LiquidityProxy_swap - swap_amount_out
+				return _toStringOptionSwapAmount_Out_V19(
+					&m->basic.liquidityproxy_swap_V19.swap_amount,
+					outValue, outValueLen,
+					pageIdx, pageCount);
+			case 3: // LiquidityProxy_swap - output_asset_id
 				return _toStringAssetId_V19(
 					&m->basic.liquidityproxy_swap_V19.output_asset_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
-			case 3: // LiquidityProxy_swap - swap_amount
-				return _toStringu8(
-					&m->basic.liquidityproxy_swap_V19.swap_amount.type,
+			case 4: // LiquidityProxy_swap - swap_amount_in
+				return _toStringOptionSwapAmount_In_V19(
+					&m->basic.liquidityproxy_swap_V19.swap_amount,
 					outValue, outValueLen,
 					pageIdx, pageCount);
-			case 4:
-				//switch (&m->basic.liquidityproxy_swap_V19.swap_amount.type){
-				//	case WithDesiredInput:{
-						return _toStringBalance(
-							&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredInput.desired_amount_in,
-							outValue, outValueLen,
-							pageIdx, pageCount);
-						break;
-				//	}
-				//	case WithDesiredOutput: {
-				//		return _toStringBalance(
-				//			&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredOutput.desired_amount_out,
-				//			outValue, outValueLen,
-				//			pageIdx, pageCount);
-				//		break;
-				//	}
-				//	default:
-				//		return parser_no_data;
-				//}
-			case 5:
-				//switch (&m->basic.liquidityproxy_swap_V19.swap_amount.type){
-				//	case WithDesiredInput:{
-						return _toStringBalance(
-							&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredInput.min_amount_out,
-							outValue, outValueLen,
-							pageIdx, pageCount);
-				//		break;
-				//	}
-				//	case WithDesiredOutput: {
-				//		return _toStringBalance(
-				//			&m->basic.liquidityproxy_swap_V19.swap_amount.WithDesiredOutput.max_amount_in,
-				//			outValue, outValueLen,
-				//			pageIdx, pageCount);
-				//		break;
-				//	}
-				//	default:
-				//		return parser_no_data;
-				//}
-			case 6: // LiquidityProxy_swap - selected_source_types
-				return _toStringu8(
+			case 5: // LiquidityProxy_swap - selected_source_types
+				return _toStringVecLiquiditySourceType_V19(
 					&m->basic.liquidityproxy_swap_V19.selected_source_types,
 					outValue, outValueLen,
 					pageIdx, pageCount);
-			case 7: // LiquidityProxy_swap - filter_mode
+			case 6: // LiquidityProxy_swap - filter_mode
 				//return parser_here_7;
 				return _toStringu8(
 					&m->basic.liquidityproxy_swap_V19.filter_mode,

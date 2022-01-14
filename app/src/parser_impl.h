@@ -27,6 +27,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdio.h>
 
+static char ASSET_TICKER;
 
 // Checks that there are at least SIZE bytes available in the buffer
 #define CTX_CHECK_AVAIL(CTX, SIZE) \
@@ -64,7 +65,25 @@ extern "C" {
         const uint8_t *c = v->_ptr + pageOffset;                                        \
         snprintf(outValue + offset, outValueLen - offset, "%02x", c[i]);                \
     }                                                                                   \
-    return parser_ok;
+	return parser_ok;
+
+#define GEN_DEF_READARRAY_ASSETID(SIZE) \
+    v->_ptr = c->buffer + c->offset; \
+    CTX_CHECK_AND_ADVANCE(c, SIZE) \
+    return ;
+
+#define GEN_DEF_TOSTRING_ARRAY_ASSET_TICKER(SIZE) \
+	char asset_id_char;																	\
+    if (v->_ptr == NULL || outValueLen == 0 ) return parser_unexpected_buffer_end;      \
+    const uint16_t outLenNormalized = (outValueLen - 1) / 2;                            \
+    uint16_t loopmax = outLenNormalized;                                                \
+    for (uint16_t i = 0; i < loopmax; i++) {                                            \
+        const uint16_t offset = i << 1u;                                                \
+        const uint8_t *c = v->_ptr;                                        				\
+        snprintf(outValue + offset, outValueLen - offset, "%02x", c[i]);                \
+    }                                                                                   \
+	//ASSET_TICKER = get_asset_ticker_by_ID(outValue);									\
+	//return parser_ok;
 
 #define GEN_DEF_TOSTRING_ENUM(NAME) \
 (*pageCount)++;                                    \

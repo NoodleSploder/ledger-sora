@@ -24,8 +24,14 @@ extern "C" {
 #include <stdint.h>
 #include "./common/uint256.h"
 
+
 // Based
 // https://github.com/paritytech/substrate/blob/master/node/primitives/src/lib.rs
+
+typedef struct {
+    const uint8_t* _ptr;
+} pd_Asset_Ticker_V19_t;
+
 
 typedef enum {
 	Disabled=0,
@@ -37,18 +43,8 @@ typedef struct {
 	uint8_t value;
 } pd_FilterMode_V19_t;
 
-typedef enum {
-    XYKPool = 0,
-    BondingCurvePool,
-    MulticollateralBondingCurvePool,
-    MockPool,
-    MockPool2,
-    MockPool3,
-    MockPool4
-} pd_LiquiditySourceType_V19_e;
-
 typedef struct {
-    uint8_t value;
+	uint8_t value;
 } pd_LiquiditySourceType_V19_t;
 
 typedef struct {
@@ -64,27 +60,11 @@ typedef struct {
 } pd_Balance_V19_t;
 
 typedef struct {
-	pd_Balance_V19_t desired_amount_in;
-	pd_Balance_V19_t min_amount_out;
-} pd_SwapWithDesiredInput_V19_t;
+	uint8_t some;
 
-typedef struct {
-	pd_Balance_V19_t desired_amount_out;
-	pd_Balance_V19_t max_amount_in;
-} pd_SwapWithDesiredOutput_V19_t;
+    pd_Balance_V19_t contained_1;
+    pd_Balance_V19_t contained_2;
 
-typedef enum {
-	WithDesiredInput = 0,
-	WithDesiredOutput = 1
-} pd_SwapAmount_V19_e;
-
-typedef struct {
-	pd_SwapAmount_V19_e type;
-    uint64_t idx;
-    const uint8_t* idPtr;
-
-    pd_SwapWithDesiredInput_V19_t WithDesiredInput;
-    pd_SwapWithDesiredOutput_V19_t WithDesiredOutput;
 } pd_SwapAmount_V19_t;
 
 
@@ -521,6 +501,8 @@ typedef struct {
 typedef struct {
     const uint8_t* _ptr;
 } pd_u8_array_32_V19_t;
+
+
 
 #ifdef __cplusplus
 }
