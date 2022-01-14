@@ -6,11 +6,12 @@
 #include <stdint.h>
 #include "network.h"
 
-static const char* NETWORK_SORA 		= "XOR LIVE";
-static const char* NETWORK_SORA_TESTNET = "XOR TESTNET";
-static const char* GENESIS_SORA    		= "7e4e32d0feafd4f9c9414b0be86373f9a1efa904809b683453a9af6856d38ad5";
+static const char* NETWORK_SORA 		= "XOR";
+static const char* NETWORK_SORA_TESTNET = "XOR";
+//static const char* GENESIS_SORA    		= "7e4e32d0feafd4f9c9414b0be86373f9a1efa904809b683453a9af6856d38ad5";
+//static const char* GENESIS_SORA_TESTNET = "1a0983c6c9fd3178ae24656bcfca4510a439ab7b90c83e360a1671609752b09a";
+static const char* GENESIS_SORA    		= "1a0983c6c9fd3178ae24656bcfca4510a439ab7b90c83e360a1671609752b09a";
 static const char* GENESIS_SORA_TESTNET = "1a0983c6c9fd3178ae24656bcfca4510a439ab7b90c83e360a1671609752b09a";
-
 
 static const char* NETWORK_ERROR = "ERROR";
 static const char* GENESIS_ERROR = "00";

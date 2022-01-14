@@ -15,7 +15,7 @@
 ********************************************************************************/
 
 #include "coin.h"
-#include "substrate_dispatch_V19.h"
+#include "substrate_dispatch_V20.h"
 #include "substrate_strings.h"
 #include "zxmacros.h"
 #include <stdint.h>
@@ -32,18 +32,18 @@
 /**
  * BALANCES idx:2
  */
-__Z_INLINE parser_error_t _readMethod_balances_transfer_V19(
-    parser_context_t* c, pd_balances_transfer_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_transfer_V20(
+    parser_context_t* c, pd_balances_transfer_V20_t* m)
 {
-	CHECK_ERROR(_readLookupSource_V19(c, &m->dest));
+	CHECK_ERROR(_readLookupSource_V20(c, &m->dest));
 	CHECK_ERROR(_readCompactBalanceOf(c, &m->value));
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V19(
-    parser_context_t* c, pd_balances_transfer_keep_alive_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V20(
+    parser_context_t* c, pd_balances_transfer_keep_alive_V20_t* m)
 {
-    CHECK_ERROR(_readLookupSource_V19(c, &m->dest))
+    CHECK_ERROR(_readLookupSource_V20(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->value))
     return parser_ok;
 }
@@ -79,8 +79,8 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V19(
 /**
  * Utility idx: 11
  */
-__Z_INLINE parser_error_t _readMethod_utility_batch_V19(
-    parser_context_t* c, pd_utility_batch_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_utility_batch_V20(
+    parser_context_t* c, pd_utility_batch_V20_t* m)
 {
     CHECK_ERROR(_readVecCall(c, &m->calls))
     return parser_ok;
@@ -90,16 +90,16 @@ __Z_INLINE parser_error_t _readMethod_utility_batch_V19(
  * Session idx: 12
  */
 
-__Z_INLINE parser_error_t _readMethod_session_set_keys_V19(
-    parser_context_t* c, pd_session_set_keys_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_session_set_keys_V20(
+    parser_context_t* c, pd_session_set_keys_V20_t* m)
 {
-    CHECK_ERROR(_readKeys_V19(c, &m->keys))
+    CHECK_ERROR(_readKeys_V20(c, &m->keys))
     CHECK_ERROR(_readBytes(c, &m->proof))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_session_purge_keys_V19(
-    parser_context_t* c, pd_session_purge_keys_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_session_purge_keys_V20(
+    parser_context_t* c, pd_session_purge_keys_V20_t* m)
 {
     return parser_ok;
 }
@@ -124,80 +124,80 @@ __Z_INLINE parser_error_t _readMethod_session_purge_keys_V19(
  * Staking idx:17
  */
 
-__Z_INLINE parser_error_t _readMethod_staking_bond_V19(
-    parser_context_t* c, pd_staking_bond_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_bond_V20(
+    parser_context_t* c, pd_staking_bond_V20_t* m)
 {
-    CHECK_ERROR(_readLookupSource_V19(c, &m->controller))
+    CHECK_ERROR(_readLookupSource_V20(c, &m->controller))
     CHECK_ERROR(_readCompactBalanceOf(c, &m->value))
-    CHECK_ERROR(_readRewardDestination_V19(c, &m->payee))
+    CHECK_ERROR(_readRewardDestination_V20(c, &m->payee))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_bond_extra_V19(
-    parser_context_t* c, pd_staking_bond_extra_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_bond_extra_V20(
+    parser_context_t* c, pd_staking_bond_extra_V20_t* m)
 {
     CHECK_ERROR(_readCompactBalanceOf(c, &m->max_additional))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_unbond_V19(
-    parser_context_t* c, pd_staking_unbond_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_unbond_V20(
+    parser_context_t* c, pd_staking_unbond_V20_t* m)
 {
     CHECK_ERROR(_readCompactBalanceOf(c, &m->value))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_withdraw_unbonded_V19(
-    parser_context_t* c, pd_staking_withdraw_unbonded_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_withdraw_unbonded_V20(
+    parser_context_t* c, pd_staking_withdraw_unbonded_V20_t* m)
 {
     CHECK_ERROR(_readu32(c, &m->num_slashing_spans))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_validate_V19(
-    parser_context_t* c, pd_staking_validate_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_validate_V20(
+    parser_context_t* c, pd_staking_validate_V20_t* m)
 {
-    CHECK_ERROR(_readValidatorPrefs_V19(c, &m->prefs))
+    CHECK_ERROR(_readValidatorPrefs_V20(c, &m->prefs))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_nominate_V19(
-    parser_context_t* c, pd_staking_nominate_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_nominate_V20(
+    parser_context_t* c, pd_staking_nominate_V20_t* m)
 {
-    CHECK_ERROR(_readVecLookupSource_V19(c, &m->targets))
+    CHECK_ERROR(_readVecLookupSource_V20(c, &m->targets))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_chill_V19(
-    parser_context_t* c, pd_staking_chill_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_chill_V20(
+    parser_context_t* c, pd_staking_chill_V20_t* m)
 {
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_set_payee_V19(
-    parser_context_t* c, pd_staking_set_payee_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_set_payee_V20(
+    parser_context_t* c, pd_staking_set_payee_V20_t* m)
 {
-    CHECK_ERROR(_readRewardDestination_V19(c, &m->payee))
+    CHECK_ERROR(_readRewardDestination_V20(c, &m->payee))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_set_controller_V19(
-    parser_context_t* c, pd_staking_set_controller_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_set_controller_V20(
+    parser_context_t* c, pd_staking_set_controller_V20_t* m)
 {
-    CHECK_ERROR(_readLookupSource_V19(c, &m->controller))
+    CHECK_ERROR(_readLookupSource_V20(c, &m->controller))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_payout_stakers_V19(
-    parser_context_t* c, pd_staking_payout_stakers_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_payout_stakers_V20(
+    parser_context_t* c, pd_staking_payout_stakers_V20_t* m)
 {
-    CHECK_ERROR(_readAccountId_V19(c, &m->validator_stash))
-    CHECK_ERROR(_readEraIndex_V19(c, &m->era))
+    CHECK_ERROR(_readAccountId_V20(c, &m->validator_stash))
+    CHECK_ERROR(_readEraIndex_V20(c, &m->era))
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_staking_rebond_V19(
-    parser_context_t* c, pd_staking_rebond_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_staking_rebond_V20(
+    parser_context_t* c, pd_staking_rebond_V20_t* m)
 {
     CHECK_ERROR(_readCompactBalanceOf(c, &m->value))
     return parser_ok;
@@ -219,12 +219,12 @@ __Z_INLINE parser_error_t _readMethod_staking_rebond_V19(
  *Assets idx: 21
  */
 
-__Z_INLINE parser_error_t _readMethod_assets_transfer_V19(
-    parser_context_t* c, pd_assets_transfer_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_assets_transfer_V20(
+    parser_context_t* c, pd_assets_transfer_V20_t* m)
 {
-	CHECK_ERROR(_readAssetId_V19(c, &m->asset_id));
-	CHECK_ERROR(_readAccountId_V19(c, &m->to));
-	CHECK_ERROR(_readAmount_V19(c, &m->amount));
+	CHECK_ERROR(_readAssetId_V20(c, &m->asset_id));
+	CHECK_ERROR(_readAccountId_V20(c, &m->to));
+	CHECK_ERROR(_readAmount_V20(c, &m->amount));
 	return parser_ok;
 }
 
@@ -241,41 +241,41 @@ __Z_INLINE parser_error_t _readMethod_assets_transfer_V19(
 /*
  * PoolXYK idx: 25
  */
-__Z_INLINE parser_error_t _readMethod_poolXYK_deposit_Liquidity_V19(
-    parser_context_t* c, pd_poolxyk_deposit_liquidity_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_poolXYK_deposit_Liquidity_V20(
+    parser_context_t* c, pd_poolxyk_deposit_liquidity_V20_t* m)
 {
-	CHECK_ERROR(_readDexId_V19(c, &m->dex_id))
-	CHECK_ERROR(_readAssetId_V19(c, &m->input_asset_a))
-	CHECK_ERROR(_readAssetId_V19(c, &m->input_asset_b))
-	CHECK_ERROR(_readBalance_V19(c, &m->input_a_desired))
-	CHECK_ERROR(_readBalance_V19(c, &m->input_b_desired))
-	CHECK_ERROR(_readBalance_V19(c, &m->input_a_min))
-	CHECK_ERROR(_readBalance_V19(c, &m->input_b_min))
+	CHECK_ERROR(_readDexId_V20(c, &m->dex_id))
+	CHECK_ERROR(_readAssetId_V20(c, &m->input_asset_a))
+	CHECK_ERROR(_readAssetId_V20(c, &m->input_asset_b))
+	CHECK_ERROR(_readBalance_V20(c, &m->input_a_desired))
+	CHECK_ERROR(_readBalance_V20(c, &m->input_b_desired))
+	CHECK_ERROR(_readBalance_V20(c, &m->input_a_min))
+	CHECK_ERROR(_readBalance_V20(c, &m->input_b_min))
 	return parser_ok;
 }
-__Z_INLINE parser_error_t _readMethod_poolXYK_withdraw_Liquidity_V19(
-    parser_context_t* c, pd_poolxyk_withdraw_liquidity_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_poolXYK_withdraw_Liquidity_V20(
+    parser_context_t* c, pd_poolxyk_withdraw_liquidity_V20_t* m)
 {
-	CHECK_ERROR(_readDexId_V19(c, &m->dex_id))
-	CHECK_ERROR(_readAssetId_V19(c, &m->output_asset_a))
-	CHECK_ERROR(_readAssetId_V19(c, &m->output_asset_b))
-	CHECK_ERROR(_readBalance_V19(c, &m->marker_asset_desired))
-	CHECK_ERROR(_readBalance_V19(c, &m->output_a_min))
-	CHECK_ERROR(_readBalance_V19(c, &m->output_b_min))
+	CHECK_ERROR(_readDexId_V20(c, &m->dex_id))
+	CHECK_ERROR(_readAssetId_V20(c, &m->output_asset_a))
+	CHECK_ERROR(_readAssetId_V20(c, &m->output_asset_b))
+	CHECK_ERROR(_readBalance_V20(c, &m->marker_asset_desired))
+	CHECK_ERROR(_readBalance_V20(c, &m->output_a_min))
+	CHECK_ERROR(_readBalance_V20(c, &m->output_b_min))
 	return parser_ok;
 }
 /*
  * LiquidityProxy idx:26
  */
-__Z_INLINE parser_error_t _readMethod_liquidityproxy_swap_V19(
-    parser_context_t* c, pd_liquidityproxy_swap_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_liquidityproxy_swap_V20(
+    parser_context_t* c, pd_liquidityproxy_swap_V20_t* m)
 {
-	CHECK_ERROR(_readDexId_V19(c, &m->dex_id));
-	CHECK_ERROR(_readAssetId_V19(c, &m->input_asset_id));
-	CHECK_ERROR(_readAssetId_V19(c, &m->output_asset_id));
-	CHECK_ERROR(_readOptionSwapAmount_V19(c, &m->swap_amount));
-	CHECK_ERROR(_readVecLiquiditySourceType_V19(c, &m->selected_source_types));
-	CHECK_ERROR(_readFilterMode_V19(c, &m->filter_mode));
+	CHECK_ERROR(_readDexId_V20(c, &m->dex_id));
+	CHECK_ERROR(_readAssetId_V20(c, &m->input_asset_id));
+	CHECK_ERROR(_readAssetId_V20(c, &m->output_asset_id));
+	CHECK_ERROR(_readOptionSwapAmount_V20(c, &m->swap_amount));
+	CHECK_ERROR(_readVecLiquiditySourceType_V20(c, &m->selected_source_types));
+	CHECK_ERROR(_readFilterMode_V20(c, &m->filter_mode));
 
 	return parser_ok;
 }
@@ -290,22 +290,22 @@ __Z_INLINE parser_error_t _readMethod_liquidityproxy_swap_V19(
 /*
  * EthBridge idx: 31
  */
-__Z_INLINE parser_error_t _readMethod_ethbridge_transfer_to_sidechain_V19(
-    parser_context_t* c, pd_ethbridge_transfer_to_sidechain_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_ethbridge_transfer_to_sidechain_V20(
+    parser_context_t* c, pd_ethbridge_transfer_to_sidechain_V20_t* m)
 {
-	CHECK_ERROR(_readAssetIdOf_V19(c, &m->asset_id));
-	CHECK_ERROR(_readEthereumAddress_V19(c, &m->to));
-	CHECK_ERROR(_readBalance_V19(c, &m->amount));
-	CHECK_ERROR(_readBridgeNetworkId_V19(c, &m->network_id));
+	CHECK_ERROR(_readAssetIdOf_V20(c, &m->asset_id));
+	CHECK_ERROR(_readEthereumAddress_V20(c, &m->to));
+	CHECK_ERROR(_readBalance_V20(c, &m->amount));
+	CHECK_ERROR(_readBridgeNetworkId_V20(c, &m->network_id));
 	return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_ethbridge_request_from_sidechain_V19(
-    parser_context_t* c, pd_ethbridge_request_from_sidechain_V19_t* m)
+__Z_INLINE parser_error_t _readMethod_ethbridge_request_from_sidechain_V20(
+    parser_context_t* c, pd_ethbridge_request_from_sidechain_V20_t* m)
 {
 	CHECK_ERROR(_readHash(c, &m->eth_tx_hash));
-	CHECK_ERROR(_readIncomingRequestKind_V19(c, &m->kind));
-	CHECK_ERROR(_readBridgeNetworkId_V19(c, &m->network_id));
+	CHECK_ERROR(_readIncomingRequestKind_V20(c, &m->kind));
+	CHECK_ERROR(_readBridgeNetworkId_V20(c, &m->network_id));
 	return parser_ok;
 }
 
@@ -334,11 +334,11 @@ __Z_INLINE parser_error_t _readMethod_ethbridge_request_from_sidechain_V19(
 #ifdef SUBSTRATE_PARSER_FULL
 #endif
 
-parser_error_t _readMethod_V19(
+parser_error_t _readMethod_V20(
     parser_context_t* c,
     uint8_t moduleIdx,
     uint8_t callIdx,
-    pd_Method_V19_t* method)
+    pd_Method_V20_t* method)
 {
 	// 256 x moduleIdx + callIdx
 	uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
@@ -346,7 +346,7 @@ parser_error_t _readMethod_V19(
     switch (callPrivIdx) {
 		/* module 2 call 0 - Balances.transfer */
 		case 512:
-			CHECK_ERROR(_readMethod_balances_transfer_V19(c, &method->nested.balances_transfer_V19))
+			CHECK_ERROR(_readMethod_balances_transfer_V20(c, &method->nested.balances_transfer_V20))
 			break;
 		/* module 2 call 1 - Balances.set_balance */
         case 513:
@@ -358,75 +358,75 @@ parser_error_t _readMethod_V19(
 			break;
 		/* module 3 call 3 - Balances.transfer_keep_alive */
 		case 515:
-			CHECK_ERROR(_readMethod_balances_transfer_keep_alive_V19(c, &method->nested.balances_transfer_keep_alive_V19))
+			CHECK_ERROR(_readMethod_balances_transfer_keep_alive_V20(c, &method->nested.balances_transfer_keep_alive_V20))
 			break;
 		/* module 17 call 0 - Staking.bond */
 		case 4352:
-			CHECK_ERROR(_readMethod_staking_bond_V19(c, &method->basic.staking_bond_V19))
+			CHECK_ERROR(_readMethod_staking_bond_V20(c, &method->basic.staking_bond_V20))
 			break;
 		/* module 17 call 1 */
 		case 4353:
-			CHECK_ERROR(_readMethod_staking_bond_extra_V19(c, &method->basic.staking_bond_extra_V19))
+			CHECK_ERROR(_readMethod_staking_bond_extra_V20(c, &method->basic.staking_bond_extra_V20))
 			break;
 		/* module 17 call 2 */
 		case 4354:
-			CHECK_ERROR(_readMethod_staking_unbond_V19(c, &method->basic.staking_unbond_V19))
+			CHECK_ERROR(_readMethod_staking_unbond_V20(c, &method->basic.staking_unbond_V20))
 			break;
 		/* module 17 call 3 */
 		case 4355:
-			CHECK_ERROR(_readMethod_staking_withdraw_unbonded_V19(c, &method->basic.staking_withdraw_unbonded_V19))
+			CHECK_ERROR(_readMethod_staking_withdraw_unbonded_V20(c, &method->basic.staking_withdraw_unbonded_V20))
 			break;
 		/* module 17 call 4 */
 		case 4356:
-			CHECK_ERROR(_readMethod_staking_validate_V19(c, &method->basic.staking_validate_V19))
+			CHECK_ERROR(_readMethod_staking_validate_V20(c, &method->basic.staking_validate_V20))
 			break;
 		/* module 17 call 5 */
 		case 4357:
-			CHECK_ERROR(_readMethod_staking_nominate_V19(c, &method->basic.staking_nominate_V19))
+			CHECK_ERROR(_readMethod_staking_nominate_V20(c, &method->basic.staking_nominate_V20))
 			break;
 		/* module 17 call 6 */
 		case 4358:
-			CHECK_ERROR(_readMethod_staking_chill_V19(c, &method->basic.staking_chill_V19))
+			CHECK_ERROR(_readMethod_staking_chill_V20(c, &method->basic.staking_chill_V20))
 			break;
 		/* module 17 call 7 */
 		case 4359:
-			CHECK_ERROR(_readMethod_staking_set_payee_V19(c, &method->basic.staking_set_payee_V19))
+			CHECK_ERROR(_readMethod_staking_set_payee_V20(c, &method->basic.staking_set_payee_V20))
 			break;
 		/* module 17 call 8 */
 		case 4360:
-			CHECK_ERROR(_readMethod_staking_set_controller_V19(c, &method->basic.staking_set_controller_V19))
+			CHECK_ERROR(_readMethod_staking_set_controller_V20(c, &method->basic.staking_set_controller_V20))
 			break;
 		/* module 17 call 18 */
 		case 4370:
-			CHECK_ERROR(_readMethod_staking_payout_stakers_V19(c, &method->basic.staking_payout_stakers_V19))
+			CHECK_ERROR(_readMethod_staking_payout_stakers_V20(c, &method->basic.staking_payout_stakers_V20))
 			break;
 		/* module 17 call 19 */
 		case 4371:
-			CHECK_ERROR(_readMethod_staking_rebond_V19(c, &method->basic.staking_rebond_V19))
+			CHECK_ERROR(_readMethod_staking_rebond_V20(c, &method->basic.staking_rebond_V20))
 			break;
 		/* module 21 call 1 - Assets.transfer */
 		case 5377:
-			CHECK_ERROR(_readMethod_assets_transfer_V19(c, &method->basic.assets_transfer_V19))
+			CHECK_ERROR(_readMethod_assets_transfer_V20(c, &method->basic.assets_transfer_V20))
 			break;
 		/* module 25 call 0 - PoolXYK.DepositLiquidity */
 		case 6400:
-			CHECK_ERROR(_readMethod_poolXYK_deposit_Liquidity_V19(c, &method->basic.poolxyk_deposit_liquidity_V19))
+			CHECK_ERROR(_readMethod_poolXYK_deposit_Liquidity_V20(c, &method->basic.poolxyk_deposit_liquidity_V20))
 			break;
 		/* module 25 call 1 - PoolXYK.WithdrawLiquidity */
 		case 6401:
-			CHECK_ERROR(_readMethod_poolXYK_withdraw_Liquidity_V19(c, &method->basic.poolxyk_withdraw_liquidity_V19))
+			CHECK_ERROR(_readMethod_poolXYK_withdraw_Liquidity_V20(c, &method->basic.poolxyk_withdraw_liquidity_V20))
 			break;
 		/* module 26 call 0 - LiquidityProxy.swap */
 		case 6656:
-			CHECK_ERROR(_readMethod_liquidityproxy_swap_V19(c, &method->basic.liquidityproxy_swap_V19))
+			CHECK_ERROR(_readMethod_liquidityproxy_swap_V20(c, &method->basic.liquidityproxy_swap_V20))
 			break;
 		/* module 31 - 3 - ethBridge.transfer_to_sidechain */
 		case 7939:
-			CHECK_ERROR(_readMethod_ethbridge_transfer_to_sidechain_V19(c, &method->basic.ethbridge_transfer_to_sidechain_V19))
+			CHECK_ERROR(_readMethod_ethbridge_transfer_to_sidechain_V20(c, &method->basic.ethbridge_transfer_to_sidechain_V20))
 			break;
 		/* module 31 - 4 - ethBridge.request_from_sidechain */
 		case 7940:
-			CHECK_ERROR(_readMethod_ethbridge_request_from_sidechain_V19(c, &method->basic.ethbridge_request_from_sidechain_V19))
+			CHECK_ERROR(_readMethod_ethbridge_request_from_sidechain_V20(c, &method->basic.ethbridge_request_from_sidechain_V20))
 			break;
 
 #ifdef SUBSTRATE_PARSER_FULL
@@ -445,7 +445,7 @@ parser_error_t _readMethod_V19(
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 
-const char* _getMethod_ModuleName_V19(uint8_t moduleIdx)
+const char* _getMethod_ModuleName_V20(uint8_t moduleIdx)
 {
     switch (moduleIdx) {
     case 2:
@@ -471,7 +471,7 @@ const char* _getMethod_ModuleName_V19(uint8_t moduleIdx)
     return NULL;
 }
 
-const char* _getMethod_Name_V19(uint8_t moduleIdx, uint8_t callIdx)
+const char* _getMethod_Name_V20(uint8_t moduleIdx, uint8_t callIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -524,7 +524,7 @@ const char* _getMethod_Name_V19(uint8_t moduleIdx, uint8_t callIdx)
     return NULL;
 }
 
-uint8_t _getMethod_NumItems_V19(uint8_t moduleIdx, uint8_t callIdx)
+uint8_t _getMethod_NumItems_V20(uint8_t moduleIdx, uint8_t callIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -585,7 +585,7 @@ uint8_t _getMethod_NumItems_V19(uint8_t moduleIdx, uint8_t callIdx)
     return 0;
 }
 
-const char* _getMethod_ItemName_V19(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
+const char* _getMethod_ItemName_V20(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -806,8 +806,8 @@ const char* _getMethod_ItemName_V19(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
 }
 
 
-parser_error_t _getMethod_ItemValue_V19(
-    pd_Method_V19_t* m,
+parser_error_t _getMethod_ItemValue_V20(
+    pd_Method_V20_t* m,
     uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx,
     char* outValue, uint16_t outValueLen,
     uint8_t pageIdx, uint8_t* pageCount)
@@ -817,14 +817,14 @@ parser_error_t _getMethod_ItemValue_V19(
     switch (callPrivIdx) {
     case 512: /* module 2 call 0 */
         switch (itemIdx) {
-        case 0: /* balances_transfer_V19 - dest */;
-            return _toStringLookupSource_V19(
-                &m->nested.balances_transfer_V19.dest,
+        case 0: /* balances_transfer_V20 - dest */;
+            return _toStringLookupSource_V20(
+                &m->nested.balances_transfer_V20.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* balances_transfer_V2 - value */;
             return _toStringCompactBalance(
-                &m->nested.balances_transfer_V19.value,
+                &m->nested.balances_transfer_V20.value,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -832,14 +832,14 @@ parser_error_t _getMethod_ItemValue_V19(
         }
 	case 515: /* module 3 call 3 - Balances.transfer_keep_alive */
         switch (itemIdx) {
-        case 0: /* balances_transfer_keep_alive_V19 - dest */;
-            return _toStringLookupSource_V19(
-                &m->nested.balances_transfer_keep_alive_V19.dest,
+        case 0: /* balances_transfer_keep_alive_V20 - dest */;
+            return _toStringLookupSource_V20(
+                &m->nested.balances_transfer_keep_alive_V20.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_transfer_keep_alive_V19 - value */;
+        case 1: /* balances_transfer_keep_alive_V20 - value */;
             return _toStringCompactBalance(
-                &m->nested.balances_transfer_keep_alive_V19.value,
+                &m->nested.balances_transfer_keep_alive_V20.value,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -849,19 +849,19 @@ parser_error_t _getMethod_ItemValue_V19(
 	/* module 17 call 0 - Staking.bond */
 	case 4352:
 		switch (itemIdx) {
-			case 0: /* staking_bond_V19 - controller */;
-				return _toStringLookupSource_V19(
-					&m->basic.staking_bond_V19.controller,
+			case 0: /* staking_bond_V20 - controller */;
+				return _toStringLookupSource_V20(
+					&m->basic.staking_bond_V20.controller,
 					outValue, outValueLen,
 					pageIdx, pageCount);
-			case 1: /* staking_bond_V19 - value */;
+			case 1: /* staking_bond_V20 - value */;
 				return _toStringCompactBalanceOf(
-					&m->basic.staking_bond_V19.value,
+					&m->basic.staking_bond_V20.value,
 					outValue, outValueLen,
 					pageIdx, pageCount);
-			case 2: /* staking_bond_V19 - payee */;
-				return _toStringRewardDestination_V19(
-					&m->basic.staking_bond_V19.payee,
+			case 2: /* staking_bond_V20 - payee */;
+				return _toStringRewardDestination_V20(
+					&m->basic.staking_bond_V20.payee,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -870,9 +870,9 @@ parser_error_t _getMethod_ItemValue_V19(
 		break;
 	case 4353: /* module 7 call 1 */
 			switch (itemIdx) {
-			case 0: /* staking_bond_extra_V19 - max_additional */;
+			case 0: /* staking_bond_extra_V20 - max_additional */;
 				return _toStringCompactBalanceOf(
-					&m->basic.staking_bond_extra_V19.max_additional,
+					&m->basic.staking_bond_extra_V20.max_additional,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -880,9 +880,9 @@ parser_error_t _getMethod_ItemValue_V19(
 			}
 	case 4354: /* module 7 call 2 */
 		switch (itemIdx) {
-		case 0: /* staking_unbond_V19 - value */;
+		case 0: /* staking_unbond_V20 - value */;
 			return _toStringCompactBalanceOf(
-				&m->basic.staking_unbond_V19.value,
+				&m->basic.staking_unbond_V20.value,
 				outValue, outValueLen,
 				pageIdx, pageCount);
 		default:
@@ -890,9 +890,9 @@ parser_error_t _getMethod_ItemValue_V19(
 		}
 	case 4355: /* module 7 call 3 */
 		switch (itemIdx) {
-		case 0: /* staking_withdraw_unbonded_V19 - num_slashing_spans */;
+		case 0: /* staking_withdraw_unbonded_V20 - num_slashing_spans */;
 			return _toStringu32(
-				&m->basic.staking_withdraw_unbonded_V19.num_slashing_spans,
+				&m->basic.staking_withdraw_unbonded_V20.num_slashing_spans,
 				outValue, outValueLen,
 				pageIdx, pageCount);
 		default:
@@ -900,9 +900,9 @@ parser_error_t _getMethod_ItemValue_V19(
 		}
 	case 4356: /* module 7 call 4 */
 		switch (itemIdx) {
-		case 0: /* staking_validate_V19 - prefs */;
-			return _toStringValidatorPrefs_V19(
-				&m->basic.staking_validate_V19.prefs,
+		case 0: /* staking_validate_V20 - prefs */;
+			return _toStringValidatorPrefs_V20(
+				&m->basic.staking_validate_V20.prefs,
 				outValue, outValueLen,
 				pageIdx, pageCount);
 		default:
@@ -910,9 +910,9 @@ parser_error_t _getMethod_ItemValue_V19(
 		}
 	case 4357: /* module 7 call 5 */
 		switch (itemIdx) {
-		case 0: /* staking_nominate_V19 - targets */;
-			return _toStringVecLookupSource_V19(
-				&m->basic.staking_nominate_V19.targets,
+		case 0: /* staking_nominate_V20 - targets */;
+			return _toStringVecLookupSource_V20(
+				&m->basic.staking_nominate_V20.targets,
 				outValue, outValueLen,
 				pageIdx, pageCount);
 		default:
@@ -925,9 +925,9 @@ parser_error_t _getMethod_ItemValue_V19(
 		}
 	case 4359: /* module 7 call 7 */
 		switch (itemIdx) {
-		case 0: /* staking_set_payee_V19 - payee */;
-			return _toStringRewardDestination_V19(
-				&m->basic.staking_set_payee_V19.payee,
+		case 0: /* staking_set_payee_V20 - payee */;
+			return _toStringRewardDestination_V20(
+				&m->basic.staking_set_payee_V20.payee,
 				outValue, outValueLen,
 				pageIdx, pageCount);
 		default:
@@ -935,9 +935,9 @@ parser_error_t _getMethod_ItemValue_V19(
 		}
 	case 4360: /* module 7 call 8 */
 		switch (itemIdx) {
-		case 0: /* staking_set_controller_V19 - controller */;
-			return _toStringLookupSource_V19(
-				&m->basic.staking_set_controller_V19.controller,
+		case 0: /* staking_set_controller_V20 - controller */;
+			return _toStringLookupSource_V20(
+				&m->basic.staking_set_controller_V20.controller,
 				outValue, outValueLen,
 				pageIdx, pageCount);
 		default:
@@ -945,14 +945,14 @@ parser_error_t _getMethod_ItemValue_V19(
 		}
 	case 4370: /* module 7 call 18 */
 		switch (itemIdx) {
-		case 0: /* staking_payout_stakers_V19 - validator_stash */;
-			return _toStringAccountId_V19(
-				&m->basic.staking_payout_stakers_V19.validator_stash,
+		case 0: /* staking_payout_stakers_V20 - validator_stash */;
+			return _toStringAccountId_V20(
+				&m->basic.staking_payout_stakers_V20.validator_stash,
 				outValue, outValueLen,
 				pageIdx, pageCount);
-		case 1: /* staking_payout_stakers_V19 - era */;
-			return _toStringEraIndex_V19(
-				&m->basic.staking_payout_stakers_V19.era,
+		case 1: /* staking_payout_stakers_V20 - era */;
+			return _toStringEraIndex_V20(
+				&m->basic.staking_payout_stakers_V20.era,
 				outValue, outValueLen,
 				pageIdx, pageCount);
 		default:
@@ -960,9 +960,9 @@ parser_error_t _getMethod_ItemValue_V19(
 		}
 	case 4371: /* module 7 call 19 */
 		switch (itemIdx) {
-			case 0: /* staking_rebond_V19 - value */;
+			case 0: /* staking_rebond_V20 - value */;
 				return _toStringCompactBalanceOf(
-					&m->basic.staking_rebond_V19.value,
+					&m->basic.staking_rebond_V20.value,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -973,19 +973,19 @@ parser_error_t _getMethod_ItemValue_V19(
     /* module 21 call 2 - Assets.transfer*/
     case 5377:
         switch (itemIdx) {
-			case 0: // assets_transfer_V19 - asset_id
-				return _toStringAssetId_V19(
-					&m->basic.assets_transfer_V19.asset_id,
+			case 0: // assets_transfer_V20 - asset_id
+				return _toStringAssetId_V20(
+					&m->basic.assets_transfer_V20.asset_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
-			case 1: // assets_transfer_V19 - to
-				return _toStringAccountId_V19(
-					&m->basic.assets_transfer_V19.to,
+			case 1: // assets_transfer_V20 - to
+				return _toStringAccountId_V20(
+					&m->basic.assets_transfer_V20.to,
 					outValue, outValueLen,
 				   pageIdx, pageCount);
-			case 2: // assets_transfer_V19 - amount
-				return _toStringBalance_V19(
-					&m->basic.assets_transfer_V19.amount,
+			case 2: // assets_transfer_V20 - amount
+				return _toStringBalance_V20(
+					&m->basic.assets_transfer_V20.amount,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -996,38 +996,38 @@ parser_error_t _getMethod_ItemValue_V19(
 	case 6400:
 		switch (itemIdx) {
 			case 0: // PoolXYK.DepositLiquidity - dex_id
-				return _toStringDexId_V19(
-					&m->basic.poolxyk_deposit_liquidity_V19.dex_id,
+				return _toStringDexId_V20(
+					&m->basic.poolxyk_deposit_liquidity_V20.dex_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 1: // PoolXYK.DepositLiquidity - input_asset_a
-				return _toStringAssetId_V19(
-					&m->basic.poolxyk_deposit_liquidity_V19.input_asset_a,
+				return _toStringAssetId_V20(
+					&m->basic.poolxyk_deposit_liquidity_V20.input_asset_a,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 2: // PoolXYK.DepositLiquidity - input_asset_b
-				return _toStringAssetId_V19(
-					&m->basic.poolxyk_deposit_liquidity_V19.input_asset_b,
+				return _toStringAssetId_V20(
+					&m->basic.poolxyk_deposit_liquidity_V20.input_asset_b,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 3: // PoolXYK.DepositLiquidity - input_a_desired
-				return _toStringBalance_V19(
-					&m->basic.poolxyk_deposit_liquidity_V19.input_a_desired,
+				return _toStringBalance_V20(
+					&m->basic.poolxyk_deposit_liquidity_V20.input_a_desired,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 4: // PoolXYK.DepositLiquidity - input_b_desired
-				return _toStringBalance_V19(
-					&m->basic.poolxyk_deposit_liquidity_V19.input_b_desired,
+				return _toStringBalance_V20(
+					&m->basic.poolxyk_deposit_liquidity_V20.input_b_desired,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 5: // PoolXYK.DepositLiquidity - input_a_min
-				return _toStringBalance_V19(
-					&m->basic.poolxyk_deposit_liquidity_V19.input_a_min,
+				return _toStringBalance_V20(
+					&m->basic.poolxyk_deposit_liquidity_V20.input_a_min,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 6: // PoolXYK.DepositLiquidity - input_b_min
-				return _toStringBalance_V19(
-					&m->basic.poolxyk_deposit_liquidity_V19.input_b_min,
+				return _toStringBalance_V20(
+					&m->basic.poolxyk_deposit_liquidity_V20.input_b_min,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -1038,33 +1038,33 @@ parser_error_t _getMethod_ItemValue_V19(
 	case 6401:
 		switch (itemIdx) {
 			case 0: // PoolXYK.WithdrawLiquidity - dex_id
-				return _toStringDexId_V19(
-					&m->basic.poolxyk_withdraw_liquidity_V19.dex_id,
+				return _toStringDexId_V20(
+					&m->basic.poolxyk_withdraw_liquidity_V20.dex_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 1: // PoolXYK.WithdrawLiquidity - output_asset_a
-				return _toStringAssetId_V19(
-					&m->basic.poolxyk_withdraw_liquidity_V19.output_asset_a,
+				return _toStringAssetId_V20(
+					&m->basic.poolxyk_withdraw_liquidity_V20.output_asset_a,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 2: // PoolXYK.WithdrawLiquidity - output_asset_b
-				return _toStringAssetId_V19(
-					&m->basic.poolxyk_withdraw_liquidity_V19.output_asset_b,
+				return _toStringAssetId_V20(
+					&m->basic.poolxyk_withdraw_liquidity_V20.output_asset_b,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 3: // PoolXYK.WithdrawLiquidity - marker_asset_desired
-				return _toStringBalance_V19(
-					&m->basic.poolxyk_withdraw_liquidity_V19.marker_asset_desired,
+				return _toStringBalance_V20(
+					&m->basic.poolxyk_withdraw_liquidity_V20.marker_asset_desired,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 4: // PoolXYK.WithdrawLiquidity - output_a_min
-				return _toStringBalance_V19(
-					&m->basic.poolxyk_withdraw_liquidity_V19.output_a_min,
+				return _toStringBalance_V20(
+					&m->basic.poolxyk_withdraw_liquidity_V20.output_a_min,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 5: // PoolXYK.WithdrawLiquidity - output_b_min
-				return _toStringBalance_V19(
-					&m->basic.poolxyk_withdraw_liquidity_V19.output_b_min,
+				return _toStringBalance_V20(
+					&m->basic.poolxyk_withdraw_liquidity_V20.output_b_min,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -1075,39 +1075,39 @@ parser_error_t _getMethod_ItemValue_V19(
 	case 6656:
 		switch (itemIdx) {
 			case 0: // LiquidityProxy_swap - dex_id
-				return _toStringDexId_V19(
-					&m->basic.liquidityproxy_swap_V19.dex_id,
+				return _toStringDexId_V20(
+					&m->basic.liquidityproxy_swap_V20.dex_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 1: // LiquidityProxy_swap - input_asset_id
-				return  _toStringAssetId_V19(
-					&m->basic.liquidityproxy_swap_V19.input_asset_id,
+				return  _toStringAssetId_V20(
+					&m->basic.liquidityproxy_swap_V20.input_asset_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 2: // LiquidityProxy_swap - swap_amount_out
-				return _toStringOptionSwapAmount_Out_V19(
-					&m->basic.liquidityproxy_swap_V19.swap_amount,
+				return _toStringOptionSwapAmount_Out_V20(
+					&m->basic.liquidityproxy_swap_V20.swap_amount,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 3: // LiquidityProxy_swap - output_asset_id
-				return _toStringAssetId_V19(
-					&m->basic.liquidityproxy_swap_V19.output_asset_id,
+				return _toStringAssetId_V20(
+					&m->basic.liquidityproxy_swap_V20.output_asset_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 4: // LiquidityProxy_swap - swap_amount_in
-				return _toStringOptionSwapAmount_In_V19(
-					&m->basic.liquidityproxy_swap_V19.swap_amount,
+				return _toStringOptionSwapAmount_In_V20(
+					&m->basic.liquidityproxy_swap_V20.swap_amount,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 5: // LiquidityProxy_swap - selected_source_types
-				return _toStringVecLiquiditySourceType_V19(
-					&m->basic.liquidityproxy_swap_V19.selected_source_types,
+				return _toStringVecLiquiditySourceType_V20(
+					&m->basic.liquidityproxy_swap_V20.selected_source_types,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 6: // LiquidityProxy_swap - filter_mode
 				//return parser_here_7;
 				return _toStringu8(
-					&m->basic.liquidityproxy_swap_V19.filter_mode,
+					&m->basic.liquidityproxy_swap_V20.filter_mode,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -1118,23 +1118,23 @@ parser_error_t _getMethod_ItemValue_V19(
 	case 7939:
 		switch (itemIdx) {
 			case 0:
-				return _toStringAssetId_V19(
-					&m->basic.ethbridge_transfer_to_sidechain_V19.asset_id,
+				return _toStringAssetId_V20(
+					&m->basic.ethbridge_transfer_to_sidechain_V20.asset_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 1:
-				return _toStringEthereumAddress_V19(
-					&m->basic.ethbridge_transfer_to_sidechain_V19.to,
+				return _toStringEthereumAddress_V20(
+					&m->basic.ethbridge_transfer_to_sidechain_V20.to,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 2:
-				return _toStringBalance_V19(
-					&m->basic.ethbridge_transfer_to_sidechain_V19.amount,
+				return _toStringBalance_V20(
+					&m->basic.ethbridge_transfer_to_sidechain_V20.amount,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 3:
-				return _toStringBridgeNetworkId_V19(
-					&m->basic.ethbridge_transfer_to_sidechain_V19.network_id,
+				return _toStringBridgeNetworkId_V20(
+					&m->basic.ethbridge_transfer_to_sidechain_V20.network_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -1146,17 +1146,17 @@ parser_error_t _getMethod_ItemValue_V19(
 		switch (itemIdx) {
 			case 0:
 				return _toStringHash(
-					&m->basic.ethbridge_request_from_sidechain_V19.eth_tx_hash,
+					&m->basic.ethbridge_request_from_sidechain_V20.eth_tx_hash,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 1:
-				return _toStringEthereumAddress_V19(
-					&m->basic.ethbridge_request_from_sidechain_V19.kind,
+				return _toStringEthereumAddress_V20(
+					&m->basic.ethbridge_request_from_sidechain_V20.kind,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			case 2:
-				return _toStringBridgeNetworkId_V19(
-					&m->basic.ethbridge_request_from_sidechain_V19.network_id,
+				return _toStringBridgeNetworkId_V20(
+					&m->basic.ethbridge_request_from_sidechain_V20.network_id,
 					outValue, outValueLen,
 					pageIdx, pageCount);
 			default:
@@ -1173,7 +1173,7 @@ parser_error_t _getMethod_ItemValue_V19(
     return parser_ok;
 }
 
-bool _getMethod_ItemIsExpert_V19(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
+bool _getMethod_ItemIsExpert_V20(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
@@ -1183,7 +1183,7 @@ bool _getMethod_ItemIsExpert_V19(uint8_t moduleIdx, uint8_t callIdx, uint8_t ite
     }
 }
 
-bool _getMethod_IsNestingSupported_V19(uint8_t moduleIdx, uint8_t callIdx)
+bool _getMethod_IsNestingSupported_V20(uint8_t moduleIdx, uint8_t callIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 

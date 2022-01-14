@@ -22,6 +22,7 @@ extern "C" {
 #include "parser_common.h"
 #include "stdbool.h"
 #include "substrate_dispatch_V19.h"
+#include "substrate_dispatch_V20.h"
 #include <stddef.h>
 #include <stdint.h>
 

@@ -16,7 +16,7 @@
 #include "bignum.h"
 #include "coin.h"
 #include "parser_impl.h"
-#include "substrate_dispatch_V19.h"
+#include "substrate_dispatch_V20.h"
 #include "substrate_strings.h"
 #include "uint256.h"
 
@@ -25,43 +25,43 @@
 #include <zxmacros.h>
 
 
-parser_error_t _readDexId_V19(parser_context_t* c, pd_DexId_V19_t* v){
+parser_error_t _readDexId_V20(parser_context_t* c, pd_DexId_V20_t* v){
 	return _readUInt32(c, &v->value);
 }
 
-parser_error_t _readBalance_V19(parser_context_t* c, pd_Balance_V19_t* v) {
+parser_error_t _readBalance_V20(parser_context_t* c, pd_Balance_V20_t* v) {
 	GEN_DEF_READARRAY(16)
 }
 
 
-parser_error_t _readOptionSwapAmount_V19(parser_context_t* c, pd_SwapAmount_V19_t* v){
+parser_error_t _readOptionSwapAmount_V20(parser_context_t* c, pd_SwapAmount_V20_t* v){
 	CHECK_ERROR(_readUInt8(c, &v->some))
-	CHECK_ERROR(_readBalance_V19(c, &v->contained_1))
-	CHECK_ERROR(_readBalance_V19(c, &v->contained_2))
+	CHECK_ERROR(_readBalance_V20(c, &v->contained_1))
+	CHECK_ERROR(_readBalance_V20(c, &v->contained_2))
 	return parser_ok;
 }
 
-parser_error_t _readLiquiditySourceType_V19(parser_context_t* c, pd_LiquiditySourceType_V19_t* v){
+parser_error_t _readLiquiditySourceType_V20(parser_context_t* c, pd_LiquiditySourceType_V20_t* v){
 	return _readUInt8(c, &v->value);
 	//GEN_DEC_READFIX_UNSIGNED(8)
 }
 
-parser_error_t _readVecLiquiditySourceType_V19(parser_context_t* c, pd_VecLiquiditySourceType_V19_t* v){
-	GEN_DEF_READVECTOR(LiquiditySourceType_V19);
+parser_error_t _readVecLiquiditySourceType_V20(parser_context_t* c, pd_VecLiquiditySourceType_V20_t* v){
+	GEN_DEF_READVECTOR(LiquiditySourceType_V20);
 	return parser_ok;
 }
 
-parser_error_t _readFilterMode_V19(parser_context_t* c, pd_FilterMode_V19_t* v){
+parser_error_t _readFilterMode_V20(parser_context_t* c, pd_FilterMode_V20_t* v){
 	//GEN_DEC_READFIX_UNSIGNED(8)
 	return _readUInt8(c, &v->value);
 }
 
-parser_error_t _readEthereumAddress_V19(parser_context_t* c, pd_EthereumAddress_V19_t* v){
+parser_error_t _readEthereumAddress_V20(parser_context_t* c, pd_EthereumAddress_V20_t* v){
 	GEN_DEF_READARRAY(20)
 	return parser_ok;
 }
 
-parser_error_t _readIncomingTransactionRequestKind_V19(parser_context_t* c, pd_IncomingTransactionRequestKind_V19_t* v){
+parser_error_t _readIncomingTransactionRequestKind_V20(parser_context_t* c, pd_IncomingTransactionRequestKind_V20_t* v){
 
 	CHECK_ERROR(_readUInt8(c, &v->type))
 
@@ -73,35 +73,35 @@ parser_error_t _readIncomingTransactionRequestKind_V19(parser_context_t* c, pd_I
 			break;
 		}
 		case AddAsset: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->WithDesiredOutput))
 			break;
 		}
 		case AddPeer: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->))
 			break;
 		}
 		case RemovePeer: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->WithDesiredOutput))
 			break;
 		}
 		case PrepareForMigration: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->))
 			break;
 		}
 		case Migrate: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->WithDesiredOutput))
 			break;
 		}
 		case AddPeerCompat: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->))
 			break;
 			}
 		case RemovePeerCompat: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->WithDesiredOutput))
 			break;
 		}
 		case TransferXOR: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->WithDesiredOutput))
 			break;
 		}
 		default:{
@@ -111,18 +111,18 @@ parser_error_t _readIncomingTransactionRequestKind_V19(parser_context_t* c, pd_I
     return parser_ok;
 }
 
-parser_error_t _readpd_IncomingMetaRequestKind_V19_t_V19(parser_context_t* c, pd_IncomingMetaRequestKind_V19_t* v){
+parser_error_t _readIncomingMetaRequestKind_V20(parser_context_t* c, pd_IncomingMetaRequestKind_V20_t* v){
 	CHECK_ERROR(_readUInt8(c, &v->type))
 
 	uint8_t tmp = _readUInt8(c, &v->type);
 
     switch ( tmp ) {
 		case CancelOutgoingRequest: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->))
 			break;
 		}
 		case MarkAsDone: {
-			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V19(c, &v->WithDesiredOutput))
+			//CHECK_ERROR(_readSwapAmountWithDesiredOutput_V20(c, &v->WithDesiredOutput))
 			break;
 		}
 		default:{
@@ -132,16 +132,16 @@ parser_error_t _readpd_IncomingMetaRequestKind_V19_t_V19(parser_context_t* c, pd
     return parser_ok;
 }
 
-parser_error_t _readIncomingRequestKind_V19(parser_context_t* c, pd_IncomingRequestKind_V19_t* v){
+parser_error_t _readIncomingRequestKind_V20(parser_context_t* c, pd_IncomingRequestKind_V20_t* v){
 	uint8_t tmp = _readUInt8(c, &v->type);
 
     switch ( tmp ) {
 		case Transfer: {
-			CHECK_ERROR(_readIncomingTransactionRequestKind_V19(c, &v->Transaction))
+			CHECK_ERROR(_readIncomingTransactionRequestKind_V20(c, &v->Transaction))
 			break;
 		}
 		case Meta: {
-			CHECK_ERROR(_readpd_IncomingMetaRequestKind_V19_t_V19(c, &v->Meta))
+			CHECK_ERROR(_readIncomingMetaRequestKind_V20(c, &v->Meta))
 			break;
 		}
 		default:{
@@ -150,35 +150,35 @@ parser_error_t _readIncomingRequestKind_V19(parser_context_t* c, pd_IncomingRequ
     }
     return parser_ok;
 }
-parser_error_t _readBridgeNetworkId_V19(parser_context_t* c, pd_BridgeNetworkId_V19_t* v){
+parser_error_t _readBridgeNetworkId_V20(parser_context_t* c, pd_BridgeNetworkId_V20_t* v){
 	return _readUInt32(c, &v->value);
 }
 
-parser_error_t _readAssetId_V19(parser_context_t* c, pd_AssetId_V19_t* v){
+parser_error_t _readAssetId_V20(parser_context_t* c, pd_AssetId_V20_t* v){
 	GEN_DEF_READARRAY(32)
 	return parser_ok;
 }
 
-parser_error_t _readAssetIdOf_V19(parser_context_t* c, pd_AssetIdOf_V19_t* v){
-	return _readAssetId_V19(c, &v->value);
+parser_error_t _readAssetIdOf_V20(parser_context_t* c, pd_AssetIdOf_V20_t* v){
+	return _readAssetId_V20(c, &v->value);
 }
 
-parser_error_t _readAccountId_V19(parser_context_t* c, pd_AccountId_V19_t* v) {
+parser_error_t _readAccountId_V20(parser_context_t* c, pd_AccountId_V20_t* v) {
     GEN_DEF_READARRAY(32)
 	return parser_ok;
 }
 
-parser_error_t _readAmount_V19(parser_context_t* c, pd_Amount_V19_t* v){
+parser_error_t _readAmount_V20(parser_context_t* c, pd_Amount_V20_t* v){
 	GEN_DEF_READARRAY(16)
 	return parser_ok;
 }
 
 
-parser_error_t _readAccountIndex_V19(parser_context_t* c, pd_AccountIndex_V19_t* v){
+parser_error_t _readAccountIndex_V20(parser_context_t* c, pd_AccountIndex_V20_t* v){
     return _readUInt32(c, &v->value);
 }
 
-parser_error_t _readAddress_V19(parser_context_t* c, pd_Address_V19_t* v){
+parser_error_t _readAddress_V20(parser_context_t* c, pd_Address_V20_t* v){
     CHECK_INPUT();
     // Based on
     // https://github.com/paritytech/substrate/blob/fc3adc87dc806237eb7371c1d21055eea1702be0/srml/indices/src/address.rs#L66
@@ -238,159 +238,159 @@ parser_error_t _readAddress_V19(parser_context_t* c, pd_Address_V19_t* v){
     return parser_ok;
 }
 
-parser_error_t _readAssetInfo_V19(parser_context_t* c, pd_AssetInfo_V19_t* v)
+parser_error_t _readAssetInfo_V20(parser_context_t* c, pd_AssetInfo_V20_t* v)
 {
     CHECK_ERROR(_readBytes(c, &v->metadata))
     return parser_ok;
 }
 
-parser_error_t _readChainId_V19(parser_context_t* c, pd_ChainId_V19_t* v)
+parser_error_t _readChainId_V20(parser_context_t* c, pd_ChainId_V20_t* v)
 {
     CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->value))
     return parser_ok;
 }
 
-parser_error_t _readEraIndex_V19(parser_context_t* c, pd_EraIndex_V19_t* v)
+parser_error_t _readEraIndex_V20(parser_context_t* c, pd_EraIndex_V20_t* v)
 {
     return _readUInt32(c, &v->value);
 }
 
-parser_error_t _readH256_array_3_V19(parser_context_t* c, pd_H256_array_3_V19_t* v) {
+parser_error_t _readH256_array_3_V20(parser_context_t* c, pd_H256_array_3_V20_t* v) {
     GEN_DEF_READARRAY(96)
 	return parser_ok;
 }
 
 
-parser_error_t _readKeyValue_V19(parser_context_t* c, pd_KeyValue_V19_t* v) {
+parser_error_t _readKeyValue_V20(parser_context_t* c, pd_KeyValue_V20_t* v) {
     GEN_DEF_READARRAY(32)
 	return parser_ok;
 }
 
-parser_error_t _readKey_V19(parser_context_t* c, pd_Key_V19_t* v) {
+parser_error_t _readKey_V20(parser_context_t* c, pd_Key_V20_t* v) {
     GEN_DEF_READARRAY(32)
 	return parser_ok;
 }
 
-parser_error_t _readKeys_V19(parser_context_t* c, pd_Keys_V19_t* v)
+parser_error_t _readKeys_V20(parser_context_t* c, pd_Keys_V20_t* v)
 {
     GEN_DEF_READARRAY(4 * 32)
     return parser_ok;
 }
 
-parser_error_t _readLookupSource_V19(parser_context_t* c, pd_LookupSource_V19_t* v) {
+parser_error_t _readLookupSource_V20(parser_context_t* c, pd_LookupSource_V20_t* v) {
     GEN_DEF_READARRAY(32)
 	return parser_ok;
 }
 
-parser_error_t _readCompactAccountIndex_V19(parser_context_t* c, pd_CompactAccountIndex_V19_t* v)
+parser_error_t _readCompactAccountIndex_V20(parser_context_t* c, pd_CompactAccountIndex_V20_t* v)
 {
     return _readCompactInt(c, &v->value);
 }
 
-parser_error_t _readCompactPerBill_V19(parser_context_t* c, pd_CompactPerBill_V19_t* v)
+parser_error_t _readCompactPerBill_V20(parser_context_t* c, pd_CompactPerBill_V20_t* v)
 {
     return _readCompactInt(c, &v->value);
 }
 
-parser_error_t _readSignature_V19(parser_context_t* c, pd_Signature_V19_t* v) {
+parser_error_t _readSignature_V20(parser_context_t* c, pd_Signature_V20_t* v) {
     GEN_DEF_READARRAY(64)
 	return parser_ok;
 }
 
 
-parser_error_t _readTokenId_V19(parser_context_t* c, pd_TokenId_V19_t* v)
+parser_error_t _readTokenId_V20(parser_context_t* c, pd_TokenId_V20_t* v)
 {
     CHECK_INPUT()
     CHECK_ERROR(_readu256(c, &v->value))
     return parser_ok;
 }
 
-parser_error_t _readTupleAccountIdData_V19(parser_context_t* c, pd_TupleAccountIdData_V19_t* v)
+parser_error_t _readTupleAccountIdData_V20(parser_context_t* c, pd_TupleAccountIdData_V20_t* v)
 {
-    CHECK_ERROR(_readAccountId_V19(c, &v->accountId))
+    CHECK_ERROR(_readAccountId_V20(c, &v->accountId))
     CHECK_ERROR(_readData(c, &v->data))
     return parser_ok;
 }
 
-parser_error_t _readu8_array_32_V19(parser_context_t* c, pd_u8_array_32_V19_t* v) {
+parser_error_t _readu8_array_32_V20(parser_context_t* c, pd_u8_array_32_V20_t* v) {
     GEN_DEF_READARRAY(32)
 }
 
-parser_error_t _readVecAccountId_V19(parser_context_t* c, pd_VecAccountId_V19_t* v) {
-    GEN_DEF_READVECTOR(AccountId_V19)
+parser_error_t _readVecAccountId_V20(parser_context_t* c, pd_VecAccountId_V20_t* v) {
+    GEN_DEF_READVECTOR(AccountId_V20)
 }
 
-parser_error_t _readVecExtendedBalance_V19(parser_context_t* c, pd_VecExtendedBalance_V19_t* v) {
-    GEN_DEF_READVECTOR(ExtendedBalance_V19)
+parser_error_t _readVecExtendedBalance_V20(parser_context_t* c, pd_VecExtendedBalance_V20_t* v) {
+    GEN_DEF_READVECTOR(ExtendedBalance_V20)
 }
 
-parser_error_t _readVecKeyValue_V19(parser_context_t* c, pd_VecKeyValue_V19_t* v) {
-    GEN_DEF_READVECTOR(KeyValue_V19)
+parser_error_t _readVecKeyValue_V20(parser_context_t* c, pd_VecKeyValue_V20_t* v) {
+    GEN_DEF_READVECTOR(KeyValue_V20)
 }
 
-parser_error_t _readVecKey_V19(parser_context_t* c, pd_VecKey_V19_t* v) {
-    GEN_DEF_READVECTOR(Key_V19)
+parser_error_t _readVecKey_V20(parser_context_t* c, pd_VecKey_V20_t* v) {
+    GEN_DEF_READVECTOR(Key_V20)
 }
 
-parser_error_t _readVecLookupSource_V19(parser_context_t* c, pd_VecLookupSource_V19_t* v) {
-    GEN_DEF_READVECTOR(LookupSource_V19)
+parser_error_t _readVecLookupSource_V20(parser_context_t* c, pd_VecLookupSource_V20_t* v) {
+    GEN_DEF_READVECTOR(LookupSource_V20)
 }
 
-parser_error_t _readVecProof_V19(parser_context_t* c, pd_VecProof_V19_t* v) {
-    GEN_DEF_READVECTOR(Proof_V19)
+parser_error_t _readVecProof_V20(parser_context_t* c, pd_VecProof_V20_t* v) {
+    GEN_DEF_READVECTOR(Proof_V20)
 }
 
-parser_error_t _readVecTupleAccountIdData_V19(parser_context_t* c, pd_VecTupleAccountIdData_V19_t* v) {
-    GEN_DEF_READVECTOR(TupleAccountIdData_V19)
+parser_error_t _readVecTupleAccountIdData_V20(parser_context_t* c, pd_VecTupleAccountIdData_V20_t* v) {
+    GEN_DEF_READVECTOR(TupleAccountIdData_V20)
 }
 
-parser_error_t _readOptionAccountId_V19(parser_context_t* c, pd_OptionAccountId_V19_t* v)
+parser_error_t _readOptionAccountId_V20(parser_context_t* c, pd_OptionAccountId_V20_t* v)
 {
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
-        CHECK_ERROR(_readAccountId_V19(c, &v->contained))
+        CHECK_ERROR(_readAccountId_V20(c, &v->contained))
     }
     return parser_ok;
 }
 
-parser_error_t _readOptionChangesTrieConfiguration_V19(parser_context_t* c, pd_OptionChangesTrieConfiguration_V19_t* v)
+parser_error_t _readOptionChangesTrieConfiguration_V20(parser_context_t* c, pd_OptionChangesTrieConfiguration_V20_t* v)
 {
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
-        CHECK_ERROR(_readChangesTrieConfiguration_V19(c, &v->contained))
+        CHECK_ERROR(_readChangesTrieConfiguration_V20(c, &v->contained))
     }
     return parser_ok;
 }
 
-parser_error_t _readOptionPeriod_V19(parser_context_t* c, pd_OptionPeriod_V19_t* v)
+parser_error_t _readOptionPeriod_V20(parser_context_t* c, pd_OptionPeriod_V20_t* v)
 {
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
-        CHECK_ERROR(_readPeriod_V19(c, &v->contained))
+        CHECK_ERROR(_readPeriod_V20(c, &v->contained))
     }
     return parser_ok;
 }
 
-parser_error_t _readOptionProxyType_V19(parser_context_t* c, pd_OptionProxyType_V19_t* v)
+parser_error_t _readOptionProxyType_V20(parser_context_t* c, pd_OptionProxyType_V20_t* v)
 {
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
-        CHECK_ERROR(_readProxyType_V19(c, &v->contained))
+        CHECK_ERROR(_readProxyType_V20(c, &v->contained))
     }
     return parser_ok;
 }
 
-parser_error_t _readOptionTimepoint_V19(parser_context_t* c, pd_OptionTimepoint_V19_t* v)
+parser_error_t _readOptionTimepoint_V20(parser_context_t* c, pd_OptionTimepoint_V20_t* v)
 {
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
-        CHECK_ERROR(_readTimepoint_V19(c, &v->contained))
+        CHECK_ERROR(_readTimepoint_V20(c, &v->contained))
     }
     return parser_ok;
 }
 
-parser_error_t _readRewardDestination_V19(parser_context_t* c, pd_RewardDestination_V19_t* v)
+parser_error_t _readRewardDestination_V20(parser_context_t* c, pd_RewardDestination_V20_t* v)
 {
     CHECK_INPUT();
 
@@ -402,10 +402,10 @@ parser_error_t _readRewardDestination_V19(parser_context_t* c, pd_RewardDestinat
     return parser_ok;
 }
 
-parser_error_t _readValidatorPrefs_V19(parser_context_t* c, pd_ValidatorPrefs_V19_t* v)
+parser_error_t _readValidatorPrefs_V20(parser_context_t* c, pd_ValidatorPrefs_V20_t* v)
 {
     CHECK_INPUT();
-    CHECK_ERROR(_readCompactPerBill_V19(c, &v->commission));
+    CHECK_ERROR(_readCompactPerBill_V20(c, &v->commission));
     //CHECK_ERROR(_readbool(c, &v->blocked))
     return parser_ok;
 }
@@ -418,8 +418,8 @@ parser_error_t _readValidatorPrefs_V19(parser_context_t* c, pd_ValidatorPrefs_V1
 ///////////////////////////////////
 ///////////////////////////////////
 
-parser_error_t _toStringDexId_V19(
-    const pd_DexId_V19_t* v,
+parser_error_t _toStringDexId_V20(
+    const pd_DexId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -430,8 +430,8 @@ parser_error_t _toStringDexId_V19(
 
 
 
-parser_error_t _toStringAccountId_V19(
-    const pd_AccountId_V19_t* v,
+parser_error_t _toStringAccountId_V20(
+    const pd_AccountId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -440,8 +440,8 @@ parser_error_t _toStringAccountId_V19(
     return _toStringPubkeyAsAddress(v->_ptr, outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringAccountIndex_V19(
-    const pd_AccountIndex_V19_t* v,
+parser_error_t _toStringAccountIndex_V20(
+    const pd_AccountIndex_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -452,8 +452,8 @@ parser_error_t _toStringAccountIndex_V19(
 
 
 
-parser_error_t _toStringAddress_V19(
-    const pd_Address_V19_t* v,
+parser_error_t _toStringAddress_V20(
+    const pd_Address_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -479,8 +479,8 @@ parser_error_t _toStringAddress_V19(
     return parser_ok;
 }
 
-parser_error_t _toStringAssetInfo_V19(
-    const pd_AssetInfo_V19_t* v,
+parser_error_t _toStringAssetInfo_V20(
+    const pd_AssetInfo_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -489,8 +489,8 @@ parser_error_t _toStringAssetInfo_V19(
     return _toStringBytes(&v->metadata, outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringChainId_V19(
-    const pd_ChainId_V19_t* v,
+parser_error_t _toStringChainId_V20(
+    const pd_ChainId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -499,8 +499,8 @@ parser_error_t _toStringChainId_V19(
     return _toStringu16((const pd_u16_t*)&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringEraIndex_V19(
-    const pd_EraIndex_V19_t* v,
+parser_error_t _toStringEraIndex_V20(
+    const pd_EraIndex_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -509,8 +509,8 @@ parser_error_t _toStringEraIndex_V19(
     return _toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringExtendedBalance_V19(
-    const pd_ExtendedBalance_V19_t* v,
+parser_error_t _toStringExtendedBalance_V20(
+    const pd_ExtendedBalance_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -519,8 +519,8 @@ parser_error_t _toStringExtendedBalance_V19(
     return _toStringu128(&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringH256_array_3_V19(
-    const pd_H256_array_3_V19_t* v,
+parser_error_t _toStringH256_array_3_V20(
+    const pd_H256_array_3_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -531,8 +531,8 @@ parser_error_t _toStringH256_array_3_V19(
 }
 
 
-parser_error_t _toStringKeyValue_V19(
-    const pd_KeyValue_V19_t* v,
+parser_error_t _toStringKeyValue_V20(
+    const pd_KeyValue_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -543,8 +543,8 @@ parser_error_t _toStringKeyValue_V19(
     return parser_print_not_supported;
 }
 
-parser_error_t _toStringKey_V19(
-    const pd_Key_V19_t* v,
+parser_error_t _toStringKey_V20(
+    const pd_Key_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -555,8 +555,8 @@ parser_error_t _toStringKey_V19(
     return parser_print_not_supported;
 }
 
-parser_error_t _toStringKeys_V19(
-    const pd_Keys_V19_t* v,
+parser_error_t _toStringKeys_V20(
+    const pd_Keys_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -565,8 +565,8 @@ parser_error_t _toStringKeys_V19(
 		return parser_ok;
 }
 
-parser_error_t _toStringLookupSource_V19(
-    const pd_LookupSource_V19_t* v,
+parser_error_t _toStringLookupSource_V20(
+    const pd_LookupSource_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -576,8 +576,8 @@ parser_error_t _toStringLookupSource_V19(
 }
 
 
-parser_error_t _toStringProof_V19(
-    const pd_Proof_V19_t* v,
+parser_error_t _toStringProof_V20(
+    const pd_Proof_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -618,8 +618,8 @@ parser_error_t _toStringProof_V19(
 }
 
 
-parser_error_t _toStringSignature_V19(
-    const pd_Signature_V19_t* v,
+parser_error_t _toStringSignature_V20(
+    const pd_Signature_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -628,8 +628,8 @@ parser_error_t _toStringSignature_V19(
 		return parser_ok;
 }
 
-parser_error_t _toStringAmount_V19(
-    const pd_Amount_V19_t* v,
+parser_error_t _toStringAmount_V20(
+    const pd_Amount_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -639,8 +639,8 @@ parser_error_t _toStringAmount_V19(
 	return parser_ok;
 }
 
-parser_error_t _toStringBalance_SIMPLE_V19(
-    const pd_Balance_V19_t* v,
+parser_error_t _toStringBalance_SIMPLE_V20(
+    const pd_Balance_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -652,7 +652,7 @@ parser_error_t _toStringBalance_SIMPLE_V19(
 
 
 
-parser_error_t _toStringBalance_V19(
+parser_error_t _toStringBalance_V20(
     const pd_Balance_t* v,
     char* outValue,
     uint16_t outValueLen,
@@ -680,11 +680,9 @@ parser_error_t _toStringBalance_V19(
     }
 
     number_inplace_trimming(bufferUI, 1);
-    //size_t size = strlen(bufferUI) + strlen(ticker) + 2;
     size_t size = strlen(bufferUI) + 2;
     char _tmpBuffer[200];
     MEMZERO(_tmpBuffer, sizeof(_tmpBuffer));
-    //strcat(_tmpBuffer, ticker);
     strcat(_tmpBuffer, " ");
     strcat(_tmpBuffer, bufferUI);
     // print length: strlen(value) + strlen(COIN_TICKER) + strlen(" ") + nullChar
@@ -696,8 +694,8 @@ parser_error_t _toStringBalance_V19(
 }
 
 
-parser_error_t _toStringBridgeNetworkId_V19(
-    const pd_BridgeNetworkId_V19_t* v,
+parser_error_t _toStringBridgeNetworkId_V20(
+    const pd_BridgeNetworkId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -707,8 +705,8 @@ parser_error_t _toStringBridgeNetworkId_V19(
 }
 
 
-parser_error_t _toStringEthereumAddress_V19(
-    const pd_EthereumAddress_V19_t* v,
+parser_error_t _toStringEthereumAddress_V20(
+    const pd_EthereumAddress_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -718,8 +716,8 @@ parser_error_t _toStringEthereumAddress_V19(
 	return parser_ok;
 }
 
-parser_error_t _toStringAssetId_V19(
-    const pd_AssetId_V19_t* v,
+parser_error_t _toStringAssetId_V20(
+    const pd_AssetId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -729,8 +727,8 @@ parser_error_t _toStringAssetId_V19(
 	return parser_ok;
 }
 
-parser_error_t _toStringTokenId_V19(
-    const pd_TokenId_V19_t* v,
+parser_error_t _toStringTokenId_V20(
+    const pd_TokenId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -739,8 +737,8 @@ parser_error_t _toStringTokenId_V19(
     return _toStringu256(&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringTupleAccountIdData_V19(
-    const pd_TupleAccountIdData_V19_t* v,
+parser_error_t _toStringTupleAccountIdData_V20(
+    const pd_TupleAccountIdData_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -748,7 +746,7 @@ parser_error_t _toStringTupleAccountIdData_V19(
 {
     // Get all pages first
     uint8_t pages[2];
-    CHECK_ERROR(_toStringAccountId_V19(&v->accountId, outValue, outValueLen, 0, &pages[0]))
+    CHECK_ERROR(_toStringAccountId_V20(&v->accountId, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringData(&v->data, outValue, outValueLen, 0, &pages[1]))
 
     *pageCount = pages[0] + pages[1];
@@ -757,7 +755,7 @@ parser_error_t _toStringTupleAccountIdData_V19(
     }
 
     if (pageIdx < pages[0]) {
-        CHECK_ERROR(_toStringAccountId_V19(&v->accountId, outValue, outValueLen, pageIdx, &pages[0]))
+        CHECK_ERROR(_toStringAccountId_V20(&v->accountId, outValue, outValueLen, pageIdx, &pages[0]))
         return parser_ok;
     }
     pageIdx -= pages[0];
@@ -770,8 +768,8 @@ parser_error_t _toStringTupleAccountIdData_V19(
     return parser_display_idx_out_of_range;
 }
 
-parser_error_t _toStringu8_array_32_V19(
-    const pd_u8_array_32_V19_t* v,
+parser_error_t _toStringu8_array_32_V20(
+    const pd_u8_array_32_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -780,100 +778,79 @@ parser_error_t _toStringu8_array_32_V19(
 	return parser_ok;
 }
 
-parser_error_t _toStringVecAccountId_V19(
-    const pd_VecAccountId_V19_t* v,
+parser_error_t _toStringVecAccountId_V20(
+    const pd_VecAccountId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(AccountId_V19);
+    GEN_DEF_TOSTRING_VECTOR(AccountId_V20);
 }
 
-parser_error_t _toStringVecExtendedBalance_V19(
-    const pd_VecExtendedBalance_V19_t* v,
+parser_error_t _toStringVecExtendedBalance_V20(
+    const pd_VecExtendedBalance_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(ExtendedBalance_V19);
+    GEN_DEF_TOSTRING_VECTOR(ExtendedBalance_V20);
 }
 
-parser_error_t _toStringVecKeyValue_V19(
-    const pd_VecKeyValue_V19_t* v,
+parser_error_t _toStringVecKeyValue_V20(
+    const pd_VecKeyValue_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(KeyValue_V19);
+    GEN_DEF_TOSTRING_VECTOR(KeyValue_V20);
 }
 
-parser_error_t _toStringVecKey_V19(
-    const pd_VecKey_V19_t* v,
+parser_error_t _toStringVecKey_V20(
+    const pd_VecKey_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(Key_V19);
+    GEN_DEF_TOSTRING_VECTOR(Key_V20);
 }
 
-parser_error_t _toStringVecLookupSource_V19(
-    const pd_VecLookupSource_V19_t* v,
+parser_error_t _toStringVecLookupSource_V20(
+    const pd_VecLookupSource_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(LookupSource_V19);
+    GEN_DEF_TOSTRING_VECTOR(LookupSource_V20);
 }
 
-parser_error_t _toStringVecProof_V19(
-    const pd_VecProof_V19_t* v,
+parser_error_t _toStringVecProof_V20(
+    const pd_VecProof_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(Proof_V19);
+    GEN_DEF_TOSTRING_VECTOR(Proof_V20);
 }
 
 
-parser_error_t _toStringVecTupleAccountIdData_V19(
-    const pd_VecTupleAccountIdData_V19_t* v,
+parser_error_t _toStringVecTupleAccountIdData_V20(
+    const pd_VecTupleAccountIdData_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(TupleAccountIdData_V19);
+    GEN_DEF_TOSTRING_VECTOR(TupleAccountIdData_V20);
 }
 
-parser_error_t _toStringOptionAccountId_V19(
-    const pd_OptionAccountId_V19_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-
-    *pageCount = 1;
-    if (v->some > 0) {
-        CHECK_ERROR(_toStringAccountId_V19(
-            &v->contained,
-            outValue, outValueLen,
-            pageIdx, pageCount));
-    } else {
-        snprintf(outValue, outValueLen, "None");
-    }
-    return parser_ok;
-}
-
-parser_error_t _toStringOptionChangesTrieConfiguration_V19(
-    const pd_OptionChangesTrieConfiguration_V19_t* v,
+parser_error_t _toStringOptionAccountId_V20(
+    const pd_OptionAccountId_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -883,7 +860,7 @@ parser_error_t _toStringOptionChangesTrieConfiguration_V19(
 
     *pageCount = 1;
     if (v->some > 0) {
-        CHECK_ERROR(_toStringChangesTrieConfiguration_V19(
+        CHECK_ERROR(_toStringAccountId_V20(
             &v->contained,
             outValue, outValueLen,
             pageIdx, pageCount));
@@ -893,8 +870,8 @@ parser_error_t _toStringOptionChangesTrieConfiguration_V19(
     return parser_ok;
 }
 
-parser_error_t _toStringOptionPeriod_V19(
-    const pd_OptionPeriod_V19_t* v,
+parser_error_t _toStringOptionChangesTrieConfiguration_V20(
+    const pd_OptionChangesTrieConfiguration_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -904,7 +881,7 @@ parser_error_t _toStringOptionPeriod_V19(
 
     *pageCount = 1;
     if (v->some > 0) {
-        CHECK_ERROR(_toStringPeriod_V19(
+        CHECK_ERROR(_toStringChangesTrieConfiguration_V20(
             &v->contained,
             outValue, outValueLen,
             pageIdx, pageCount));
@@ -914,8 +891,8 @@ parser_error_t _toStringOptionPeriod_V19(
     return parser_ok;
 }
 
-parser_error_t _toStringOptionProxyType_V19(
-    const pd_OptionProxyType_V19_t* v,
+parser_error_t _toStringOptionPeriod_V20(
+    const pd_OptionPeriod_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -925,7 +902,7 @@ parser_error_t _toStringOptionProxyType_V19(
 
     *pageCount = 1;
     if (v->some > 0) {
-        CHECK_ERROR(_toStringProxyType_V19(
+        CHECK_ERROR(_toStringPeriod_V20(
             &v->contained,
             outValue, outValueLen,
             pageIdx, pageCount));
@@ -935,8 +912,8 @@ parser_error_t _toStringOptionProxyType_V19(
     return parser_ok;
 }
 
-parser_error_t _toStringOptionTimepoint_V19(
-    const pd_OptionTimepoint_V19_t* v,
+parser_error_t _toStringOptionProxyType_V20(
+    const pd_OptionProxyType_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -946,7 +923,28 @@ parser_error_t _toStringOptionTimepoint_V19(
 
     *pageCount = 1;
     if (v->some > 0) {
-        CHECK_ERROR(_toStringTimepoint_V19(
+        CHECK_ERROR(_toStringProxyType_V20(
+            &v->contained,
+            outValue, outValueLen,
+            pageIdx, pageCount));
+    } else {
+        snprintf(outValue, outValueLen, "None");
+    }
+    return parser_ok;
+}
+
+parser_error_t _toStringOptionTimepoint_V20(
+    const pd_OptionTimepoint_V20_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    *pageCount = 1;
+    if (v->some > 0) {
+        CHECK_ERROR(_toStringTimepoint_V20(
             &v->contained,
             outValue, outValueLen,
             pageIdx, pageCount));
@@ -957,8 +955,8 @@ parser_error_t _toStringOptionTimepoint_V19(
 }
 
 
-parser_error_t _toStringRewardDestination_V19(
-    const pd_RewardDestination_V19_t* v,
+parser_error_t _toStringRewardDestination_V20(
+    const pd_RewardDestination_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -986,8 +984,8 @@ parser_error_t _toStringRewardDestination_V19(
 
 
 
-parser_error_t _toStringValidatorPrefs_V19(
-    const pd_ValidatorPrefs_V19_t* v,
+parser_error_t _toStringValidatorPrefs_V20(
+    const pd_ValidatorPrefs_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -996,7 +994,7 @@ parser_error_t _toStringValidatorPrefs_V19(
     CLEAN_AND_CHECK()
 
     uint8_t pages[2];
-    CHECK_ERROR(_toStringCompactPerBill_V19(&v->commission, outValue, outValueLen, 0, &pages[0]))
+    CHECK_ERROR(_toStringCompactPerBill_V20(&v->commission, outValue, outValueLen, 0, &pages[0]))
     //CHECK_ERROR(_toStringbool(&v->blocked, outValue, outValueLen, 0, &pages[1]))
 
     *pageCount = 0;
@@ -1009,7 +1007,7 @@ parser_error_t _toStringValidatorPrefs_V19(
     }
 
     if (pageIdx < pages[0]) {
-        CHECK_ERROR(_toStringCompactPerBill_V19(&v->commission, outValue, outValueLen, pageIdx, &pages[0]))
+        CHECK_ERROR(_toStringCompactPerBill_V20(&v->commission, outValue, outValueLen, pageIdx, &pages[0]))
         return parser_ok;
     }
     pageIdx -= pages[0];
@@ -1022,8 +1020,8 @@ parser_error_t _toStringValidatorPrefs_V19(
     return parser_display_idx_out_of_range;
 }
 
-parser_error_t _toStringCompactPerBill_V19(
-    const pd_CompactPerBill_V19_t* v,
+parser_error_t _toStringCompactPerBill_V20(
+    const pd_CompactPerBill_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -1033,8 +1031,8 @@ parser_error_t _toStringCompactPerBill_V19(
     return _toStringCompactInt(&v->value, 7, '%', "", outValue, outValueLen, pageIdx, pageCount);
 }
 
-parser_error_t _toStringOptionSwapAmount_Out_V19(
-	const pd_SwapAmount_V19_t* v,
+parser_error_t _toStringOptionSwapAmount_Out_V20(
+	const pd_SwapAmount_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -1043,16 +1041,18 @@ parser_error_t _toStringOptionSwapAmount_Out_V19(
 	CLEAN_AND_CHECK()
 
 	*pageCount = 1;
-	CHECK_ERROR(_toStringBalance_V19(
+
+	CHECK_ERROR(_toStringBalance_V20(
 		&v->contained_1,
 		outValue, outValueLen,
 		pageIdx, pageCount));
+
 	return parser_ok;
 }
 
 
-parser_error_t _toStringOptionSwapAmount_In_V19(
-	const pd_SwapAmount_V19_t* v,
+parser_error_t _toStringOptionSwapAmount_In_V20(
+	const pd_SwapAmount_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -1062,7 +1062,7 @@ parser_error_t _toStringOptionSwapAmount_In_V19(
 
 	*pageCount = 1;
 
-	CHECK_ERROR(_toStringBalance_V19(
+	CHECK_ERROR(_toStringBalance_V20(
 		&v->contained_2,
 		outValue, outValueLen,
 		pageIdx, pageCount));
@@ -1071,8 +1071,8 @@ parser_error_t _toStringOptionSwapAmount_In_V19(
 
 
 
-parser_error_t _toStringLiquiditySourceType_V19(
-    const pd_LiquiditySourceType_V19_t* v,
+parser_error_t _toStringLiquiditySourceType_V20(
+    const pd_LiquiditySourceType_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -1082,12 +1082,12 @@ parser_error_t _toStringLiquiditySourceType_V19(
 }
 
 
-parser_error_t _toStringVecLiquiditySourceType_V19(
-    const pd_VecLiquiditySourceType_V19_t* v,
+parser_error_t _toStringVecLiquiditySourceType_V20(
+    const pd_VecLiquiditySourceType_V20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    GEN_DEF_TOSTRING_VECTOR(LiquiditySourceType_V19);
+    GEN_DEF_TOSTRING_VECTOR(LiquiditySourceType_V20);
 }
