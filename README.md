@@ -16,7 +16,7 @@ This project contains the Sora app (https://sora.org) for Ledger Nano S and X an
 For more information: [How to build](docs/build.md)
 
 ### Videos:
-[Youtube Video - How to use the SORA Ledger App](https://www.youtube.com/watch?v=JMmvdcipOz4)
+[How to use the SORA Ledger App](https://www.youtube.com/watch?v=JMmvdcipOz4)
 
 ### Medium Articles:
 [How to use your Ledger hardware wallet with SORA network and Polkaswap.io ( Developer / Tester Version )](https://medium.com/@validnodes/how-to-use-your-ledger-device-with-sora-polkaswap-io-c767e42f51fb)
@@ -33,5 +33,5 @@ Please:
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
 
-# Sora  19.19.x
+
 
