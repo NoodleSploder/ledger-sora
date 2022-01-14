@@ -20,18 +20,26 @@ extern "C" {
 #endif
 
 // Modules names
-static const char* STR_MO_SYSTEM 					= "System"; 		/*  0 */
-static const char* STR_MO_BALANCES 					= "Balances"; 		/*  2 */
-static const char* STR_MO_STAKING 					= "Staking"; 		/* 17 */
-static const char* STR_MO_ASSETS 					= "Assets"; 		/* 21 */
-static const char* STR_MO_POOLXYK					= "poolXYK"; 		/* 25 */
-static const char* STR_MO_LIQUIDITYPROXY			= "LiquidityProxy"; /* 26 */
-static const char* STR_MO_ETHBRIDGE					= "EthBridge"; /* 31 */
+static const char* STR_MO_SYSTEM 					= "System"; 			/*  0 */
+static const char* STR_MO_BALANCES 					= "Balances"; 			/*  2 */
+static const char* STR_MO_UTILITY 					= "Utility"; 			/* 11 */
+static const char* STR_MO_STAKING 					= "Staking"; 			/* 17 */
+static const char* STR_MO_ASSETS 					= "Assets"; 			/* 21 */
+static const char* STR_MO_POOLXYK					= "poolXYK"; 			/* 25 */
+static const char* STR_MO_LIQUIDITYPROXY			= "LiquidityProxy"; 	/* 26 */
+static const char* STR_MO_ETHBRIDGE					= "EthBridge";      	/* 31 */
+static const char* STR_MO_PSWAP_DISTRIBUTION		= "PswapDistribution";  /* 32 */
+static const char* STR_MO_VESTED_REWARDS			= "VestedRewards";  	/* 40 */
+
 
 // Methods Names
 static const char* STR_ME_TRANSFER 					= "transfer";
 static const char* STR_ME_TRANSFER_KEEP_ALIVE 		= "Transfer keep alive";
 static const char* STR_ME_bond 						= "bond";
+/* Methods Names - Utility */
+static const char* STR_ME_BATCH 					= "Batch";
+static const char* STR_ME_BATCH_ALL 				= "Batch All";
+
 /* Methods Names - Staking */
 static const char* STR_ME_BOND 						= "Bond";
 static const char* STR_ME_BOND_EXTRA 				= "Bond extra";
@@ -52,6 +60,11 @@ static const char* STR_ME_SWAP						= "Swap";
 /* Method Names - EthBridge */
 static const char* STR_ME_TRANSFER_TO_SIDECHAIN		= "transfer_to_sidechain";
 static const char* STR_ME_REQUEST_FROM_SIDECHAIN	= "request_from_sidechain";
+/* Method Names - PswapDistribution */
+static const char* STR_ME_CLAIM_INCENTIVE			= "claim_incentive";
+/* Method Names - VestedRewards */
+static const char* STR_ME_CLAIM_REWARDS				= "claim_rewards";
+
 
 // Items names
 static const char* STR_IT_dest 						= "Dest";
@@ -92,7 +105,7 @@ static const char* STR_IT_targets 					= "Targets";
 static const char* STR_IT_validator_stash 			= "Validator stash";
 static const char* STR_IT_stash 					= "Stash";
 static const char* STR_IT_era 						= "Era";
-
+static const char* STR_IT_calls						= "Calls";
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // MAP ASSET_ID to COIN TICKER

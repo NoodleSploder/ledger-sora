@@ -86,6 +86,13 @@ __Z_INLINE parser_error_t _readMethod_utility_batch_V20(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_utility_batch_all_V20(
+    parser_context_t* c, pd_utility_batch_V20_t* m)
+{
+    CHECK_ERROR(_readVecCall(c, &m->calls))
+    return parser_ok;
+}
+
 /**
  * Session idx: 12
  */
@@ -310,8 +317,18 @@ __Z_INLINE parser_error_t _readMethod_ethbridge_request_from_sidechain_V20(
 }
 
 
+
 /*
  * PswapDistribution idx: 32
+ */
+__Z_INLINE parser_error_t _readMethod_PswapDistribution_claim_incentive_V20(
+    parser_context_t* c, pd_pswapdistribution_claim_incentive_V20_t* m)
+{
+	return parser_ok;
+}
+
+
+/*
  * Multisig idx: 33
  * Scheduler idx: 34
  * IrohaMigration idx: 35
@@ -319,7 +336,17 @@ __Z_INLINE parser_error_t _readMethod_ethbridge_request_from_sidechain_V20(
  * Offences idx: 37
  * TechnicalMembership idx: 38
  * ElectionsPhragmen idx: 39
+ */
+/*
  * VestedRewards idx: 40
+ */
+__Z_INLINE parser_error_t _readMethod_VestedRewards_claim_rewards_V20(
+    parser_context_t* c, pd_vestedrewards_claim_rewards_V20_t* m)
+{
+	return parser_ok;
+}
+
+/*
  * Identity idx: 41
  * Farming idx: 42
  * XSTPool idx: 43
@@ -352,13 +379,25 @@ parser_error_t _readMethod_V20(
         case 513:
         	return parser_not_supported;
         	break;
-		/* module 3 call 2 - Balances.force_transfer */
+		/* module 2 call 2 - Balances.force_transfer */
 		case 514:
 			return parser_not_supported;
 			break;
-		/* module 3 call 3 - Balances.transfer_keep_alive */
+		/* module 2 call 3 - Balances.transfer_keep_alive */
 		case 515:
 			CHECK_ERROR(_readMethod_balances_transfer_keep_alive_V20(c, &method->nested.balances_transfer_keep_alive_V20))
+			break;
+		/* module 11 call 0 - Utility.batch */
+		case 2816:
+			CHECK_ERROR(_readMethod_utility_batch_V20(c, &method->basic.utility_batch_V20))
+			break;
+		/* module 11 call 1 - Utility.batch_all */
+		case 2817:
+			return parser_tx_call_vec_too_large;
+			break;
+		/* module 11 call 2 - Utility.batch_all */
+		case 2818:
+			CHECK_ERROR(_readMethod_utility_batch_all_V20(c, &method->nested.utility_batch_all_V20))
 			break;
 		/* module 17 call 0 - Staking.bond */
 		case 4352:
@@ -428,6 +467,14 @@ parser_error_t _readMethod_V20(
 		case 7940:
 			CHECK_ERROR(_readMethod_ethbridge_request_from_sidechain_V20(c, &method->basic.ethbridge_request_from_sidechain_V20))
 			break;
+		/* module 32 - 0 - PswapDistribution.claim_incentive */
+		case 8192:
+			CHECK_ERROR(_readMethod_PswapDistribution_claim_incentive_V20(c, &method->basic.pswapdistribution_claim_incentive_V20))
+			break;
+		/* module 40 - 0 - VestedRewards.claim_rewards */
+		case 10240:
+			CHECK_ERROR(_readMethod_VestedRewards_claim_rewards_V20(c, &method->basic.vestedrewards_claim_rewards_V20))
+			break;
 
 #ifdef SUBSTRATE_PARSER_FULL
 
@@ -450,6 +497,8 @@ const char* _getMethod_ModuleName_V20(uint8_t moduleIdx)
     switch (moduleIdx) {
     case 2:
     	return STR_MO_BALANCES;
+    case 11:
+    	return STR_MO_UTILITY;
     case 17:
     	return STR_MO_STAKING;
     case 21:
@@ -460,6 +509,10 @@ const char* _getMethod_ModuleName_V20(uint8_t moduleIdx)
     	return STR_MO_LIQUIDITYPROXY;
     case 31:
     	return STR_MO_ETHBRIDGE;
+    case 32:
+    	return STR_MO_PSWAP_DISTRIBUTION;
+    case 40:
+    	return STR_MO_VESTED_REWARDS;
 #ifdef SUBSTRATE_PARSER_FULL
     case 0:
         return STR_MO_SYSTEM;
@@ -480,6 +533,10 @@ const char* _getMethod_Name_V20(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_TRANSFER;
     case 515: /* module 3 call 3 - Balances.transfer_keep_alive */
     	return STR_ME_TRANSFER_KEEP_ALIVE;
+	case 2816: /* module 11 call 0 - Utility.batch */
+		return STR_ME_BATCH;
+	case 2818: /* module 11 call 2 - Utility.batch_all */
+		return STR_ME_BATCH_ALL;
 	case 4352: /* module 17 call 0 - Staking.bond */
 		return STR_ME_BOND;
     case 4353: /* module 7 call 1 */
@@ -514,6 +571,10 @@ const char* _getMethod_Name_V20(uint8_t moduleIdx, uint8_t callIdx)
     	return STR_ME_TRANSFER_TO_SIDECHAIN;
     case 7940: /* module 31 - 4 - ethBridge.request_from_sidechain */
     	return STR_ME_REQUEST_FROM_SIDECHAIN;
+	case 8192:/* module 32 - 0 - PswapDistribution.claim_incentive */
+		return STR_ME_CLAIM_INCENTIVE;
+	case 10240:/* module 40 - 0 - VestedRewards.claim_rewards */
+		return STR_ME_CLAIM_REWARDS;
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -533,8 +594,11 @@ uint8_t _getMethod_NumItems_V20(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 515: /* module 2 call 3 - Balances.transfer_keep_alive */
     	return 2;
-    /* module 17 call 0 - Staking.bond */
-    case 4352:
+    case 2816: /* module 11 call 0 - Utility.batch */
+		return 1;
+	case 2818: /* module 11 call 2 - Utility.batch_all */
+		return 1;
+    case 4352: /* module 17 call 0 - Staking.bond */
 		return 3;
     case 4353: /* module 7 call 1 */
         return 1;
@@ -575,6 +639,12 @@ uint8_t _getMethod_NumItems_V20(uint8_t moduleIdx, uint8_t callIdx)
 	/* module 31 - 4 - ethBridge.request_from_sidechain */
 	case 7940:
 		return 3;
+	/* module 32 - 0 - PswapDistribution.claim_incentive */
+	case 8192:
+		return 0;
+		/* module 40 - 0 - VestedRewards.claim_rewards */
+	case 10240:
+		return 0;
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -611,6 +681,24 @@ const char* _getMethod_ItemName_V20(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
 			default:
 				return NULL;
 			}
+	/* module 11 call 0 - Utility.batch */
+	case 2816:
+		switch (itemIdx) {
+			case 0:
+				return STR_IT_calls;
+			default:
+				return NULL;
+			}
+		break;
+	/* module 11 call 2 - Utility.batch_all */
+	case 2818:
+		switch (itemIdx) {
+			case 0:
+				return STR_IT_calls;
+			default:
+				return NULL;
+			}
+		break;
     /* module 17 call 0 - Staking.bond */
     case 4352:
         switch (itemIdx) {
@@ -795,6 +883,18 @@ const char* _getMethod_ItemName_V20(uint8_t moduleIdx, uint8_t callIdx, uint8_t 
 			default:
 				return NULL;
 		}
+	/* module 32 - 0 - PswapDistribution.claim_incentive */
+	case 8192:
+		switch (itemIdx) {
+			default:
+				return NULL;
+		}
+	/* module 40 - 0 - VestedRewards.claim_rewards */
+	case 10240:
+		switch (itemIdx) {
+			default:
+				return NULL;
+		}
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -845,7 +945,28 @@ parser_error_t _getMethod_ItemValue_V20(
         default:
             return parser_no_data;
         }
-
+	/* module 11 call 0 - Utility.batch */
+	case 2816:
+		switch (itemIdx) {
+			case 0: /* utility_batch_V20 - calls */
+				return _toStringVecCall(
+					&m->basic.utility_batch_V20.calls,
+					outValue, outValueLen,
+					pageIdx, pageCount);
+			default:
+				return parser_no_data;
+		}
+	/* module 11 call 2 - Utility.batch_all */
+	case 2818:
+		switch (itemIdx) {
+			case 0: /* utility_batch_all_V20 - calls */
+				return _toStringVecCall(
+					&m->basic.utility_batch_all_V20.calls,
+					outValue, outValueLen,
+					pageIdx, pageCount);
+			default:
+				return parser_no_data;
+		}
 	/* module 17 call 0 - Staking.bond */
 	case 4352:
 		switch (itemIdx) {
@@ -1163,6 +1284,18 @@ parser_error_t _getMethod_ItemValue_V20(
 				return parser_no_data;
 		}
 		break;
+	/* module 32 - 0 - PswapDistribution.claim_incentive */
+	case 8192:
+		switch (itemIdx) {
+			default:
+				return parser_no_data;
+		}
+	/* module 40 - 0 - VestedRewards.claim_rewards */
+	case 10240:
+		switch (itemIdx) {
+			default:
+				return NULL;
+		}
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif

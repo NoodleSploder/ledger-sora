@@ -27,7 +27,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 
-// SORA MODULES ( TODO )
+// SORA MODULES
 #define PD_CALL_SYSTEM_V20 0
 #define PD_CALL_TIMESTAMP_V20 1
 #define PD_CALL_BALANCES_V20 2
@@ -52,6 +52,8 @@ extern "C" {
 #define PD_CALL_POOLXYK_V20 25
 #define PD_CALL_LIQUIDITYPROXY_V20 26
 #define PD_CALL_ETHBRIDGE 31
+#define PD_CALL_PSWAPDISTRIBUTION 32
+#define PD_CALL_VESTEDREWARDS 40
 
 // 11 - UTILITY CALLS
 #define PD_CALL_UTILITY_BATCH_V20 0
@@ -59,7 +61,7 @@ typedef struct {
     pd_VecCall_t calls;
 } pd_utility_batch_V20_t;
 
-#define PD_CALL_UTILITY_BATCH_ALL_V7 2
+#define PD_CALL_UTILITY_BATCH_ALL_V20 2
 typedef struct {
     pd_VecCall_t calls;
 } pd_utility_batch_all_V20_t;
@@ -191,6 +193,14 @@ typedef struct {
 
 } pd_ethbridge_request_from_sidechain_V20_t;
 
+#define PD_CALL_PSWAPDISTRIBUTION_CLAIM_INCENTIVE 0
+typedef struct {
+} pd_pswapdistribution_claim_incentive_V20_t;
+
+#define PD_CALL_VESTEDREWARDS_CLAIM_REWARDS	0
+typedef struct {
+} pd_vestedrewards_claim_rewards_V20_t;
+
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -222,6 +232,8 @@ typedef union {
 	pd_assets_transfer_V20_t assets_transfer_V20;
 	pd_ethbridge_transfer_to_sidechain_V20_t ethbridge_transfer_to_sidechain_V20;
 	pd_ethbridge_request_from_sidechain_V20_t ethbridge_request_from_sidechain_V20;
+	pd_pswapdistribution_claim_incentive_V20_t pswapdistribution_claim_incentive_V20;
+	pd_vestedrewards_claim_rewards_V20_t vestedrewards_claim_rewards_V20;
 #ifdef SUBSTRATE_PARSER_FULL
 
 #endif
@@ -247,6 +259,10 @@ typedef struct {
 typedef union {
 	pd_balances_transfer_V20_t balances_transfer_V20;
 	pd_balances_transfer_keep_alive_V20_t balances_transfer_keep_alive_V20;
+
+    pd_utility_batch_V20_t utility_batch_V20;
+    pd_utility_batch_all_V20_t utility_batch_all_V20;
+
 	#ifdef SUBSTRATE_PARSER_FULL
 
 	#endif
