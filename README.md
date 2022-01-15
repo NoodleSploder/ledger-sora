@@ -33,5 +33,9 @@ Please:
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
 
+### Donations
 
+Donations are welcome and appreciated.
+
+SORA Address:  cnSuceTxxGY2pzDziiHMzNnAFkoejtbh1zXKR1L3ihY2feFMz
 
