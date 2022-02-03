@@ -1,7 +1,7 @@
 
 #include <stdint.h>
 #include "assets.h"
-#include "substrate_types_V19.h"
+#include "substrate_types_V22.h"
 
 static const char* ASSET_XOR_TICKER		= "XOR";
 static const char* ASSET_XOR_ID			= "0200000000000000000000000000000000000000000000000000000000000000";
@@ -41,13 +41,13 @@ char* get_asset_id(uint8_t id){
 	}
 }
 
-char* get_asset_ticker_by_ID(pd_AssetId_V19_t* a){
+char* get_asset_ticker_by_ID(pd_AssetId_V22_t* a){
 
     char hashstr[65];
     uint8_t pc;
 
     if (&a->_ptr != NULL) {
-    	_toStringAssetId_V19(&a, hashstr, 65, 0, &pc);
+    	_toStringAssetId_V22(&a, hashstr, 65, 0, &pc);
 
     	return hashstr;
 
