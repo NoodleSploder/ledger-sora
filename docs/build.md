@@ -35,7 +35,7 @@ then run:
 
 - We only officially support Ubuntu. Install the following packages:
    ```
-   sudo apt update && apt-get -y install build-essential git wget cmake \
+   sudo apt update && sudo apt-get -y install build-essential git wget cmake \
   libssl-dev libgmp-dev autoconf libtool
    ```
 
