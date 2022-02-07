@@ -1,7 +1,7 @@
 //
 // Created by overseven on 21.06.2021.
 //
-#include "substrate_types_V22.h"
+#include "substrate_types_V24.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,7 +19,7 @@ char *get_asset_ticker(uint8_t id);
 
 char* get_asset_id(uint8_t id);
 
-char* get_asset_ticker_by_ID(pd_AssetId_V22_t* a);
+char* get_asset_ticker_by_ID(pd_AssetId_V24_t* a);
 
 #ifdef __cplusplus
 }
