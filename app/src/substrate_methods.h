@@ -29,12 +29,17 @@ extern "C" {
 #include "substrate_methods_V24.h"
 #include "substrate_types_V24.h"
 
+#include "substrate_methods_V26.h"
+#include "substrate_types_V26.h"
+
 typedef union {
     pd_Method_V24_t V24;
+    pd_Method_V26_t V26;
 } pd_Method_t;
 
 typedef union {
     pd_MethodNested_V24_t V24;
+    pd_MethodNested_V26_t V26;
 } pd_MethodNested_t;
 
 #ifdef __cplusplus

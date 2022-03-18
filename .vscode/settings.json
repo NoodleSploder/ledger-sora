@@ -11,6 +11,8 @@
         "substrate_dispatch_v5.h": "c",
         "parser_common.h": "c",
         "parser_txdef.h": "c",
-        "substrate_methods.h": "c"
-    }
+        "substrate_methods.h": "c",
+        "substrate_dispatch_v24.h": "c"
+    },
+    "cmake.configureOnOpen": true
 }

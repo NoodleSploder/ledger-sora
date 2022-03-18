@@ -1,4 +1,4 @@
-# Kusama App
+#  SORA App
 
 ## General structure
 
