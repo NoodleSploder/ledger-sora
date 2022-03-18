@@ -23,6 +23,7 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 #include "./common/uint256.h"
+#include "substrate_enums_SORA.h"
 
 
 // Based
@@ -98,43 +99,20 @@ typedef struct {
 	uint32_t value;
 } pd_BridgeNetworkId_V24_t;
 
-typedef enum {
-	Transfer=0,
-	AddAsset,
-	AddPeer,
-	RemovePeer,
-	PrepareForMigration,
-	Migrate,
-	AddPeerCompat,
-	RemovePeerCompat,
-	TransferXOR
-} pd_IncomingTransactionRequestKind_V24_e;
-
-typedef enum {
-	 CancelOutgoingRequest=0,
-	 MarkAsDone
-} pd_IncomingMetaRequestKind_V24_e;
-
-
-typedef enum {
-     Transaction = 0,
-     Meta
-} pd_IncomingRequestKind_V24_e;
-
 typedef struct {
-	pd_IncomingTransactionRequestKind_V24_e type;
+	pd_IncomingTransactionRequestKind_e type;
     uint64_t idx;
     const uint8_t* idPtr;
 } pd_IncomingTransactionRequestKind_V24_t;
 
 typedef struct {
-	pd_IncomingMetaRequestKind_V24_e type;
+	pd_IncomingMetaRequestKind_e type;
     uint64_t idx;
     const uint8_t* idPtr;
 } pd_IncomingMetaRequestKind_V24_t;
 
 typedef struct {
-	pd_IncomingRequestKind_V24_e type;
+	pd_IncomingRequestKind_e type;
     uint64_t idx;
     const uint8_t* idPtr;
 

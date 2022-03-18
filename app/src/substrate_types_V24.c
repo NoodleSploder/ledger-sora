@@ -61,7 +61,7 @@ parser_error_t _readEthereumAddress_V24(parser_context_t* c, pd_EthereumAddress_
 	return parser_ok;
 }
 
-parser_error_t _readIncomingTransactionRequestKind_V24(parser_context_t* c, pd_IncomingTransactionRequestKind_V24_t* v){
+parser_error_t _readIncomingTransactionRequestKind_V24(parser_context_t* c, pd_IncomingTransactionRequestKind_t* v){
 
 	CHECK_ERROR(_readUInt8(c, &v->type))
 
