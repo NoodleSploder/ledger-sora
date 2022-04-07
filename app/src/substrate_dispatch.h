@@ -23,6 +23,7 @@ extern "C" {
 #include "stdbool.h"
 #include "substrate_dispatch_V24.h"
 #include "substrate_dispatch_V26.h"
+#include "substrate_dispatch_V30.h"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -40,6 +41,8 @@ extern "C" {
             return PD_CALL_##CALL##_V24;            \
         case 26:                                    \
             return PD_CALL_##CALL##_V26;            \
+        case 30:                                    \
+            return PD_CALL_##CALL##_V30;            \
         default:                                   \
             return 0;                              \
         }                                          \

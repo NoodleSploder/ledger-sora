@@ -30,6 +30,11 @@ parser_error_t _readAccountId_V26(parser_context_t* c, pd_AccountId_V26_t* v);
 parser_error_t _readAccountIndex_V26(parser_context_t* c, pd_AccountIndex_V26_t* v);
 parser_error_t _readAddress_V26(parser_context_t* c, pd_Address_V26_t* v);
 parser_error_t _readAssetInfo_V26(parser_context_t* c, pd_AssetInfo_V26_t* v);
+
+parser_error_t _readAssetName_V26(parser_context_t* c, pd_AssetName_V26_t* v);
+
+
+
 parser_error_t _readChainId_V26(parser_context_t* c, pd_ChainId_V26_t* v);
 parser_error_t _readEraIndex_V26(parser_context_t* c, pd_EraIndex_V26_t* v);
 parser_error_t _readExtendedBalance_V26(parser_context_t* c, pd_ExtendedBalance_V26_t* v);
@@ -321,13 +326,6 @@ parser_error_t _toStringLookupSource_V26(
 
 parser_error_t _toStringMemberCount_V26(
     const pd_MemberCount_V26_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringMintInfo_V26(
-    const pd_MintInfo_V26_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

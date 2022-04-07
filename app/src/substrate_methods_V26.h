@@ -144,6 +144,17 @@ typedef struct {
 	pd_Amount_V26_t amount;
 } pd_assets_transfer_V26_t;
 
+#define PD_CALL_ASSETS_REGISTER_V26 1
+typedef struct {
+	pd_AssetSymbol_V26_t symbol;
+	pd_AssetName_V26_t name;
+	pd_InitialSupply_V26_t initial_supply;
+	pd_IsMintable_V26_t is_mintable;
+	pd_IsIndivisible_V26_t is_indivisible ;
+ 	//pd__V26_t initial_supply;
+} pd_assets_register_V26_t;
+
+
 // 25 - LIQUIDITYPROXY CALLS
 #define PD_CALL_POOLXYK_DEPOSIT_LIQUIDITY_V26 0
 typedef struct {

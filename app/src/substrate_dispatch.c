@@ -33,7 +33,9 @@ parser_error_t _readMethod(
     case 25:
         return _readMethod_V24(c, moduleIdx, callIdx, &method->V24); 
     case 26:
-        return _readMethod_V24(c, moduleIdx, callIdx, &method->V26); 
+        return _readMethod_V26(c, moduleIdx, callIdx, &method->V26); 
+    case 30:
+        return _readMethod_V30(c, moduleIdx, callIdx, &method->V30);     
     default:
         return parser_not_supported;
     }
@@ -49,7 +51,9 @@ uint8_t _getMethod_NumItems(uint32_t transactionVersion, uint8_t moduleIdx, uint
     case 25:
         return _getMethod_NumItems_V24(moduleIdx, callIdx);
     case 26:
-        return _getMethod_NumItems_V26(moduleIdx, callIdx);
+        return _getMethod_NumItems_V26(moduleIdx, callIdx);  
+    case 30:
+        return _getMethod_NumItems_V30(moduleIdx, callIdx);  
     default:
         return parser_not_supported;
     }
@@ -66,6 +70,8 @@ const char* _getMethod_ModuleName(uint32_t transactionVersion, uint8_t moduleIdx
         return _getMethod_ModuleName_V24(moduleIdx);
     case 26:
         return _getMethod_ModuleName_V26(moduleIdx);
+    case 30:
+        return _getMethod_ModuleName_V30(moduleIdx);
     default:
         return NULL;
     }
@@ -82,6 +88,8 @@ const char* _getMethod_Name(uint32_t transactionVersion, uint8_t moduleIdx, uint
         return _getMethod_Name_V24(moduleIdx, callIdx);
     case 26:
         return _getMethod_Name_V26(moduleIdx, callIdx);
+    case 30:
+        return _getMethod_Name_V30(moduleIdx, callIdx);
     default:
         return 0;
     }
@@ -98,6 +106,8 @@ const char* _getMethod_ItemName(uint32_t transactionVersion, uint8_t moduleIdx, 
         return _getMethod_ItemName_V24(moduleIdx, callIdx, itemIdx);
     case 26:
         return _getMethod_ItemName_V26(moduleIdx, callIdx, itemIdx);
+    case 30:
+        return _getMethod_ItemName_V30(moduleIdx, callIdx, itemIdx);
     default:
         return NULL;
     }
@@ -120,6 +130,9 @@ parser_error_t _getMethod_ItemValue(uint32_t transactionVersion, pd_Method_t* m,
     case 26:
         return _getMethod_ItemValue_V26(&m->V26, moduleIdx, callIdx, itemIdx, outValue,
             outValueLen, pageIdx, pageCount);
+    case 30:
+        return _getMethod_ItemValue_V30(&m->V30, moduleIdx, callIdx, itemIdx, outValue,
+            outValueLen, pageIdx, pageCount);
     default:
         return parser_not_supported;
     }
@@ -136,6 +149,8 @@ bool _getMethod_ItemIsExpert(uint32_t transactionVersion, uint8_t moduleIdx, uin
         return _getMethod_ItemIsExpert_V24(moduleIdx, callIdx, itemIdx);
     case 26:
         return _getMethod_ItemIsExpert_V26(moduleIdx, callIdx, itemIdx);
+    case 30:
+        return _getMethod_ItemIsExpert_V30(moduleIdx, callIdx, itemIdx);
     default:
         return false;
     }
@@ -152,6 +167,8 @@ bool _getMethod_IsNestingSupported(uint32_t transactionVersion, uint8_t moduleId
         return _getMethod_IsNestingSupported_V24(moduleIdx, callIdx);
     case 26:
         return _getMethod_IsNestingSupported_V26(moduleIdx, callIdx);
+    case 30:
+        return _getMethod_IsNestingSupported_V30(moduleIdx, callIdx);
     default:
         return false;
     }
